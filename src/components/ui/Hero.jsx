@@ -110,12 +110,12 @@ const Hero = () => {
                             </button>
 
                             <div className="relative pt-[56.25%] w-full">
-                                <iframe
-                                    src="https://www.loom.com/embed/14955f0b3d934b14af27dca3cd194ecd"
-                                    frameBorder="0"
-                                    allowFullScreen
-                                    className="absolute top-0 left-0 w-full h-full"
-                                ></iframe>
+                                <video
+                                    src="/intro-video.mp4"
+                                    controls
+                                    autoPlay
+                                    className="absolute top-0 left-0 w-full h-full object-cover"
+                                ></video>
                             </div>
                         </motion.div>
                     </motion.div>
