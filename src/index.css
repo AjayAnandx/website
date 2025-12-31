@@ -92,6 +92,9 @@
 }
 
 @layer base {
+  html {
+     scrollbar-gutter: stable;
+  }
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/30 selection:text-foreground;
     font-family: var(--font-sans);

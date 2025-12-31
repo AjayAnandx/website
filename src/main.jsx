@@ -12,66 +12,64 @@ import CoursePlatformPage from './pages/CoursePlatformPage.jsx';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ClickSpark from './components/ui/ClickSpark';
-import VisionLoader from './components/ui/VisionLoader';
+import HelloLoader from './components/ui/HelloLoader';
 import './index.css';
 
 const MainApp = () => {
-  const [loading, setLoading] = useState(true);
   const location = useLocation();
+  // Initialize loading state: only true if on homepage
+  const [loading, setLoading] = useState(location.pathname === '/');
+  // Track if we started with loading to determine animation
+  const [startedWithLoader] = useState(location.pathname === '/');
 
   // Scroll to top on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  // Only show loader on homepage
-  const isHomePage = location.pathname === '/';
-  const showLoader = loading && isHomePage;
-
   const handleLoadingComplete = () => {
     setLoading(false);
   };
 
+  const [isRevealComplete, setIsRevealComplete] = useState(false);
+
   return (
     <>
       <AnimatePresence mode="wait">
-        {showLoader && (
-          <VisionLoader key="loader" onComplete={handleLoadingComplete} />
+        {loading && (
+          <HelloLoader key="loader" onComplete={handleLoadingComplete} />
         )}
       </AnimatePresence>
 
-      <AnimatePresence>
-        {(!showLoader) && (
-          <motion.div
-            key="app-content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
-            <ClickSpark
-              sparkColor='#8c15eeff'
-              sparkSize={10}
-              sparkRadius={15}
-              sparkCount={8}
-              duration={400}
-            >
-              <div className="min-h-screen bg-background text-foreground antialiased selection:bg-white/20">
-                <Navbar />
-                <Routes>
-                  <Route path="/" element={<App />} />
-                  <Route path="/about" element={<AboutPage />} />
-                  <Route path="/services" element={<ServicesPage />} />
-                  <Route path="/case-study" element={<CaseStudyPage />} />
-                  <Route path="/contact" element={<ContactPage />} />
-                  <Route path="/ai-consulting" element={<AIConsultingPage />} />
-                  <Route path="/course-platform" element={<CoursePlatformPage />} />
-                </Routes>
-                <Footer />
-              </div>
-            </ClickSpark>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <motion.div
+        key="content"
+        initial={startedWithLoader ? { opacity: 0, scale: 0.99 } : { opacity: 0 }}
+        animate={{
+          opacity: loading ? 0 : 1,
+          scale: loading ? 0.99 : 1,
+          transition: {
+            duration: 1.2,
+            ease: [0.25, 1, 0.5, 1],
+            delay: loading ? 0 : 0.1 // minimal delay to let loader exit start
+          }
+        }}
+        className="w-full"
+      >
+        <div className="">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/case-study" element={<CaseStudyPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/ai-consulting" element={<AIConsultingPage />} />
+            <Route path="/course-platform" element={<CoursePlatformPage />} />
+          </Routes>
+          <Footer />
+          <ClickSpark />
+        </div>
+      </motion.div>
     </>
   );
 };
@@ -83,4 +81,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </React.StrictMode>,
 );
-
