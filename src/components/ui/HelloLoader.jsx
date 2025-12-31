@@ -38,6 +38,9 @@ const HelloLoader = ({ onComplete }) => {
     return (
         <motion.div
             className="fixed inset-0 z-[9999] flex items-center justify-center bg-black"
+            style={{
+                background: 'radial-gradient(circle at center, rgba(88, 28, 135, 0.4) 0%, #000000 70%)'
+            }}
             initial={{ opacity: 1 }}
             exit={{
                 opacity: 0,
