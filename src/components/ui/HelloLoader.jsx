@@ -2,42 +2,31 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const greetings = [
-    "Hello",        // English (Priority)
-    "Annyeong",     // Korean
-    "Bonjour",      // French
-    "Ciao",         // Italian
-    "Hallå",        // Swedish
-    "Hallo",        // German
-    "Hola",         // Spanish
-    "Konnichiwa",   // Japanese
-    "Namaste",      // Hindi
-    "Ni hao",       // Chinese (Simplified Pinyin)
-    "Olá"           // Portuguese
+    "Hello",
+    "Bonjour",
+    "Ciao",
+    "Olà",
+    "やあ",
+    "Hallå",
+    "Guten tag",
+    "Hallo"
 ];
 
 const HelloLoader = ({ onComplete }) => {
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
-        // Show each greeting for a short duration
-        // The total duration should feel snappy but readable
-
-        if (index >= greetings.length) {
+        if (index >= greetings.length - 1) {
             // After last greeting, wait a bit and then complete
+            // Reduced wait time for snappier exit
             const timer = setTimeout(() => {
                 onComplete?.();
-            }, 600); // Slight pause on the last word
+            }, 800);
             return () => clearTimeout(timer);
         }
 
-        // Apple's "Hello" animation varies speed. Starts slow, gets fast, ends slow.
-        // Simplified dynamic timing:
-        // First word: long
-        // Last word: long
-        // Middle words: fast
-        let duration = 180; // Standard fast pulse for middle words
-        if (index === 0) duration = 1000; // Initial "Hello"
-        else if (index === greetings.length - 1) duration = 1000; // Final word
+        // Uniform timing for all words "slowly and equal gap"
+        const duration = 800;
 
         const timer = setTimeout(() => {
             setIndex((prev) => prev + 1);
