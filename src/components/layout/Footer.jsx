@@ -48,9 +48,9 @@ const Footer = () => {
 
                     {/* Brand Column */}
                     <div className="md:col-span-1">
-                        <div className="flex items-center gap-2 mb-4">
-                            <div className="w-6 h-6 bg-white rounded-md" />
-                            <span className="text-xl font-bold">QuantumScripts</span>
+                        <div className="flex items-center mb-4">
+                            <img src="/quantum_logo.png" alt="QuantumScripts Logo" className="w-14 h-14 object-contain -mr-2 translate-y-1" />
+                            <span className="text-xl font-bold">uantumScripts</span>
                         </div>
                         <p className="text-white/60 text-sm leading-relaxed">
                             Etery is a premium website template designed specifically for Artificial Intelligence (AI) agencies.

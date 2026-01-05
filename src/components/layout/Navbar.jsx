@@ -36,8 +36,9 @@ const Navbar = () => {
                 )}
             >
                 <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <span className="font-bold text-xl tracking-tight">Quantumscripts</span>
+                    <div className="flex items-center">
+                        <img src="/quantum_logo.png" alt="QuantumScripts Logo" className="w-14 h-14 object-contain -mr-2 translate-y-1" />
+                        <span className="font-bold text-xl tracking-tight">uantumscripts</span>
                     </div>
 
                     {/* Desktop Nav */}
