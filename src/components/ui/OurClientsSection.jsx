@@ -4,63 +4,63 @@ import { X } from "lucide-react";
 const testimonials = [
     {
         quote: "The best investment solution for our business! AI technologies not only save time, but also increase efficiency.",
-        name: "Jesse Leigh",
+        name: "Rajesh Kumar",
         role: "CEO & FOUNDER",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jesse"
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rajesh"
     },
     {
         quote: "Thanks to their team, our internal processes were optimized, resulting in significant better results for my work.",
-        name: "Amy Lovlee",
+        name: "Priya Sharma",
         role: "CUSTOMER SUCCESS MANAGER",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Amy"
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
     },
     {
         quote: "The best investment solution for our business! AI technologies not only save time, but also increase efficiency.",
-        name: "Michael Joseph",
+        name: "Amit Patel",
         role: "HEAD OF CONTENT",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael"
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Amit"
     },
     {
         quote: "Thanks to their team, our internal processes were optimized, resulting in significant savings and better outcomes.",
-        name: "Benjamin David",
+        name: "Rahul Singh",
         role: "HEAD OF ENGINEERING",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Benjamin"
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rahul"
     },
     {
         quote: "The platform transformed how we approach AI integration. Exceptional support and powerful features.",
-        name: "Sarah Chen",
+        name: "Anjali Gupta",
         role: "CTO",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Anjali"
     },
     {
         quote: "Outstanding results! The AI solutions have revolutionized our workflow and boosted productivity significantly.",
-        name: "David Martinez",
+        name: "Vikram Malhotra",
         role: "OPERATIONS DIRECTOR",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David"
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Vikram"
     },
     {
         quote: "Incredible ROI and seamless integration. This is exactly what our company needed to scale efficiently.",
-        name: "Emily Watson",
+        name: "Sneha Reddy",
         role: "PRODUCT MANAGER",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily"
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sneha"
     },
     {
         quote: "The AI tools are intuitive and powerful. Our team adapted quickly and saw immediate improvements.",
-        name: "Robert Kim",
+        name: "Arjun Rao",
         role: "TECH LEAD",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Robert"
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Arjun"
     },
     {
         quote: "Game-changing technology! The automation capabilities have freed up countless hours for strategic work.",
-        name: "Lisa Anderson",
+        name: "Neha Verma",
         role: "VP OF MARKETING",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lisa"
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Neha"
     },
     {
         quote: "Exceptional service and cutting-edge AI solutions. Highly recommend for any business looking to innovate.",
-        name: "James Wilson",
+        name: "Suresh Nair",
         role: "FOUNDER & CEO",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=James"
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Suresh"
     }
 ];
 

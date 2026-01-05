@@ -3,7 +3,7 @@ import CountUp from "./CountUp";
 
 const stats = [
     {
-        numericValue: 150,
+        numericValue: 80,
         suffix: "+",
         title: "Project success",
         description: "Delivered across 20+ countries—from startups to top corporations."
@@ -15,7 +15,7 @@ const stats = [
         description: "Clients reporting enhanced efficiency with our custom strategies."
     },
     {
-        numericValue: 300,
+        numericValue: 150,
         suffix: "+",
         title: "AI innovation",
         description: "Hours spent crafting smart AI tools to optimize workflows across key industries."

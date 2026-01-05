@@ -62,13 +62,13 @@ const AboutSection = () => {
                     transition={{ duration: 0.6, delay: 0.1 }}
                     className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
                 >
-                    We help brands unlock growth through smart AI automation.{" "}
+                    We empower brands to grow smarter with AI automation,{" "}
                     <span className="text-white/50">
-                        With 12+ years behind us, we turn{" "}
+                        building{" "}
                     </span>
-                    <span className="text-white">bold ideas</span>
+                    <span className="text-white">scalable, intelligent systems</span>
                     <span className="text-white/50">
-                        {" "}into scalable, intelligent systems that work.
+                        {" "}that work seamlessly across operations.
                     </span>
                 </motion.h2>
 

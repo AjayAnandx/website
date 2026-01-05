@@ -6,19 +6,20 @@ const contactMethods = [
         icon: MessageSquare,
         title: "Chat to sales",
         description: "Contact our sales team.",
-        contact: "sales@etery.com"
+        contact: "quantumscripts24@gmail.com",
+        href: "mailto:quantumscripts24@gmail.com"
     },
     {
         icon: Phone,
         title: "Call Us",
         description: "Get instant help.",
-        contact: "+359 88 777 980"
+        contact: "+91 9444242048"
     },
     {
         icon: MapPin,
         title: "Office:",
         description: "Reach out to us any time for questions, support, or inquiries.",
-        contact: "100 Georgi S. Rakovski Street, Sofia, Bulgaria",
+        contact: "KK.Nagar , Chennai , India",
         isAddress: true
     }
 ];
@@ -74,9 +75,15 @@ const ContactSection = () => {
                                 <p className="text-white/50 text-sm mb-4">
                                     {method.description}
                                 </p>
-                                <p className="text-white font-medium">
-                                    {method.contact}
-                                </p>
+                                {method.href ? (
+                                    <a href={method.href} className="text-white font-medium hover:text-blue-400 transition-colors">
+                                        {method.contact}
+                                    </a>
+                                ) : (
+                                    <p className="text-white font-medium">
+                                        {method.contact}
+                                    </p>
+                                )}
                             </motion.div>
                         ))}
                     </div>
@@ -114,6 +121,17 @@ const ContactSection = () => {
 
                             <div>
                                 <label className="block text-sm font-medium mb-2">
+                                    Phone Number
+                                </label>
+                                <input
+                                    type="tel"
+                                    placeholder="Enter Your Phone Number"
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 transition-colors"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium mb-2">
                                     More Info
                                 </label>
                                 <textarea
@@ -123,12 +141,16 @@ const ContactSection = () => {
                                 />
                             </div>
 
-                            <button
+                            <motion.button
                                 type="submit"
-                                className="w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-full font-semibold text-white transition-all duration-300 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40"
+                                whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(147, 51, 234, 0.4)" }}
+                                whileTap={{ scale: 0.98 }}
+                                className="w-full py-4 rounded-full font-bold text-black bg-white transition-all shadow-[0_0_20px_rgba(147,51,234,0.15)] hover:bg-gray-50"
                             >
-                                Send the message
-                            </button>
+                                <span className="flex items-center justify-center gap-2 text-lg tracking-wide">
+                                    Send the message
+                                </span>
+                            </motion.button>
                         </form>
                     </motion.div>
 

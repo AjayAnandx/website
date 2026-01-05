@@ -53,7 +53,7 @@ const Footer = () => {
                             <span className="text-xl font-bold">uantumScripts</span>
                         </div>
                         <p className="text-white/60 text-sm leading-relaxed">
-                            Etery is a premium website template designed specifically for Artificial Intelligence (AI) agencies.
+                            Quantum Scripts is a premium AI automation agency helping businesses build scalable, intelligent systems through modern web and generative AI solutions.
                         </p>
                     </div>
 
@@ -121,9 +121,9 @@ const Footer = () => {
 
                 {/* Bottom Section */}
                 <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/40">
-                    <p>© 2025, Etery . Designed by Manso.</p>
+                    <p>© 2025 Quantum Scripts. All rights reserved.</p>
                     <div className="flex gap-4">
-                        <span>Built with Framer.</span>
+                        <span>Built with React</span>
                     </div>
                 </div>
 
