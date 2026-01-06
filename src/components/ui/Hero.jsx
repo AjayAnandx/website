@@ -122,6 +122,8 @@ const Hero = () => {
                 )}
             </AnimatePresence>
 
+            <div className="absolute bottom-0 w-full h-96 bg-gradient-to-t from-black via-black/80 to-transparent z-10 pointer-events-none" />
+
         </section>
     );
 };

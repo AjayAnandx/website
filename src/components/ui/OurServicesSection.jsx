@@ -10,7 +10,7 @@ const services = [
         tags: ["Software Dev", "Full-Stack", "Custom Apps"],
         image: "/software-dev.jpg",
         accentColor: "blue",
-        link: "/services"
+        link: "/software-development"
     },
     {
         title: "Website Development",
@@ -21,7 +21,7 @@ const services = [
         link: "/services"
     },
     {
-        title: "AI Consulting",
+        title: "AI & Automation",
         description: "Create bespoke AI applications that transform your operations. Our experts build custom machine learning models and intelligent automations aligned with your goals.",
         tags: ["AI Strategy", "ML Models", "Automation"],
         image: "/ai-app.jpg",

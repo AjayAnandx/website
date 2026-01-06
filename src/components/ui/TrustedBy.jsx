@@ -6,7 +6,7 @@ const companies = [
 
 const TrustedBy = () => {
     return (
-        <section className="py-20 border-t border-white/5 bg-black">
+        <section className="py-20 bg-black">
             <div className="container mx-auto px-6 text-center mb-10">
                 <p className="text-sm font-medium text-white/40 uppercase tracking-widest">Trusted by industry leaders</p>
             </div>
