@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import LightRays from './LightRays';
+import RotatingText from './RotatingText';
 
 const AboutHero = () => {
     return (
@@ -34,12 +35,23 @@ const AboutHero = () => {
                     className="max-w-4xl mx-auto"
                 >
                     <h1 className="text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-8 leading-tight tracking-tight">
-                        Helping you make a <br />
-                        <span className="font-serif italic font-light">lasting</span> <span className="font-bold">impact online.</span>
+                        Helping brands build, launch, <br />
+                        and scale with <RotatingText
+                            texts={['Websites', 'AI', 'Courses', 'Software', 'Systems']}
+                            mainClassName="inline-flex px-2 sm:px-2 md:px-3 text-purple-400 overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg font-serif italic font-light"
+                            staggerFrom={"last"}
+                            initial={{ y: "100%" }}
+                            animate={{ y: 0 }}
+                            exit={{ y: "-120%" }}
+                            staggerDuration={0.025}
+                            splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+                            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                            rotationInterval={2000}
+                        />
                     </h1>
 
-                    <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-                        We're here to craft more than just a website—our mission is to help you build a digital experience that connects, engages, and drives real results for your business.
+                    <p className="text-white/60 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+                        We go beyond design and development. Quantum Scripts delivers high performance websites, custom AI solutions, course launch platforms, and scalable software engineered to drive growth, engagement, and long-term impact.
                     </p>
                 </motion.div>
             </div>

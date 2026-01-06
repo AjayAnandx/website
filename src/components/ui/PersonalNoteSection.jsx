@@ -62,11 +62,11 @@ const PersonalNoteSection = () => {
                         {/* Main Title */}
                         <div>
                             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
-                                On a <span className="italic font-serif text-white/90">personal</span> note
+                                On a <span className="italic font-serif text-white/90">human</span> note
                             </h2>
                         </div>
 
-                        {/* Section 1: We work hard and have fun */}
+                        {/* Section 1: We build with purpose */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -75,16 +75,14 @@ const PersonalNoteSection = () => {
                             className="space-y-3"
                         >
                             <h3 className="text-2xl font-semibold text-white drop-shadow-md">
-                                We work hard and have fun
+                                We build with purpose and enjoy the process
                             </h3>
                             <p className="text-white/70 text-lg leading-relaxed">
-                                Our workspace thrives on energy and laughter, whether we're
-                                brainstorming new ideas or just sharing stories. We find that staying
-                                lighthearted keeps our creativity flowing.
+                                At Quantum Scripts, curiosity and collaboration power everything we create. From whiteboard sessions to problem solving deep dives, we keep our work environment open, energetic, and forward-thinking.
                             </p>
                         </motion.div>
 
-                        {/* Section 2: We're a close-knit team */}
+                        {/* Section 2: A team built on trust */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -93,16 +91,14 @@ const PersonalNoteSection = () => {
                             className="space-y-3"
                         >
                             <h3 className="text-2xl font-semibold text-white drop-shadow-md">
-                                We're a close-knit team
+                                A team built on trust
                             </h3>
                             <p className="text-white/70 text-lg leading-relaxed">
-                                We're more than colleagues—we're a family. Whether we're tackling
-                                a big project or just supporting each other through the day, we
-                                always have each other's backs.
+                                We operate as one unit. Designers, developers, and AI engineers work closely to turn complex ideas into reliable digital systems. Clear communication, ownership, and mutual respect help us move fast and build better.
                             </p>
                         </motion.div>
 
-                        {/* Section 3: Celebrating individuality */}
+                        {/* Section 3: Different minds, stronger solutions */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -111,12 +107,10 @@ const PersonalNoteSection = () => {
                             className="space-y-3"
                         >
                             <h3 className="text-2xl font-semibold text-white drop-shadow-md">
-                                Celebrating individuality
+                                Different minds, stronger solutions
                             </h3>
                             <p className="text-white/70 text-lg leading-relaxed">
-                                Everyone here brings something unique. Whether it's a quirky skill or
-                                an offbeat hobby, we embrace what makes each of us different—it's
-                                what strengthens our collective creativity.
+                                Diverse perspectives fuel innovation. Every team member brings a unique way of thinking whether it’s product logic, creative design, or system architecture. This mix allows us to craft smarter websites, AI solutions, course platforms, and software products.
                             </p>
                         </motion.div>
 

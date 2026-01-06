@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { Phone } from "lucide-react";
 import Silk from "./Silk";
 
 const AboutCTASection = () => {
@@ -64,7 +65,7 @@ const AboutCTASection = () => {
                         className="inline-flex items-center gap-2 mb-8 px-4 py-2 bg-black/40 backdrop-blur-sm rounded-full border border-green-500/30 shadow-lg shadow-green-500/10"
                     >
                         <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-lg shadow-green-500/50"></span>
-                        <span className="text-sm text-white/90">Hurry, only 3 spots left.</span>
+                        <span className="text-sm text-white/90">Limited availability for new projects.</span>
                     </motion.div>
 
                     {/* Main Heading */}
@@ -96,7 +97,11 @@ const AboutCTASection = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
                     >
-                        <button className="group relative px-10 py-4 text-lg font-semibold text-white rounded-full overflow-hidden transition-all duration-500 hover:scale-110 shadow-2xl shadow-purple-600/30">
+                        <motion.button
+                            className="group relative px-8 py-3 text-base font-semibold text-white rounded-full overflow-hidden transition-all duration-500 hover:scale-105 shadow-2xl shadow-purple-600/30 flex items-center justify-center gap-2 mx-auto"
+                            initial="initial"
+                            whileHover="hover"
+                        >
                             {/* Gradient background */}
                             <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600"></div>
 
@@ -109,11 +114,32 @@ const AboutCTASection = () => {
                             </div>
 
                             {/* Button text */}
-                            <span className="relative z-10">Book a call</span>
+                            <motion.span
+                                className="relative z-10"
+                                variants={{
+                                    initial: { x: 0 },
+                                    hover: { x: -4 }
+                                }}
+                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                            >
+                                Book a call
+                            </motion.span>
+
+                            {/* Icon */}
+                            <motion.span
+                                className="relative z-10"
+                                variants={{
+                                    initial: { opacity: 0, x: 10, width: 0 },
+                                    hover: { opacity: 1, x: 0, width: "auto" }
+                                }}
+                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                            >
+                                <Phone className="w-4 h-4" />
+                            </motion.span>
 
                             {/* Glow effect */}
                             <div className="absolute inset-0 -z-10 bg-gradient-to-r from-purple-600 to-blue-600 blur-2xl opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </button>
+                        </motion.button>
                     </motion.div>
 
                 </div>

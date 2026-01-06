@@ -54,12 +54,10 @@ const ProfessionalNoteSection = () => {
                             className="space-y-3"
                         >
                             <h3 className="text-2xl font-semibold text-white">
-                                We're passionate about digital excellence
+                                We’re driven by intelligent digital excellence
                             </h3>
                             <p className="text-white/70 text-lg leading-relaxed">
-                                Our team is driven by a shared mission to create visually stunning,
-                                high-performing websites. We stay ahead of trends and use cutting-edge
-                                techniques to help your brand stand out.
+                                At Quantum Scripts, our team combines modern web development, AI engineering, and software expertise to build scalable digital systems that go beyond visuals and deliver real business value.
                             </p>
                         </motion.div>
 
@@ -75,9 +73,7 @@ const ProfessionalNoteSection = () => {
                                 Quality at the forefront
                             </h3>
                             <p className="text-white/70 text-lg leading-relaxed">
-                                Every project is crafted with attention to detail and a commitment to
-                                deliver exceptional results that not only look great but also drive
-                                performance.
+                                Every solution we create whether a website, AI application, course platform, or custom software is crafted with precision, performance, and scalability in mind. We focus on clean architecture, seamless user experience, and long-term reliability.
                             </p>
                         </motion.div>
 
@@ -93,9 +89,7 @@ const ProfessionalNoteSection = () => {
                                 Focus on measurable impact
                             </h3>
                             <p className="text-white/70 text-lg leading-relaxed">
-                                We design strategies that prioritize growth. Our focus is on delivering
-                                tangible results that move the needle for your business and create
-                                lasting value.
+                                We design and develop with outcomes in mind. Our strategies prioritize growth, automation, and efficiency delivering measurable results that help businesses scale, optimize operations, and create lasting digital impact.
                             </p>
                         </motion.div>
 
