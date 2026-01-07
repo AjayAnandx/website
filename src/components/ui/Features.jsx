@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -77,8 +77,21 @@ const projects = [
 ];
 
 const Features = () => {
+    // Desktop State
     const [page, setPage] = useState(0);
     const totalPages = Math.ceil(projects.length / 3);
+    const currentProjects = projects.slice(page * 3, (page + 1) * 3);
+
+    // Mobile State
+    const [mobileIndex, setMobileIndex] = useState(0);
+
+    // Mobile Auto-Slide
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setMobileIndex((prev) => (prev + 1) % projects.length);
+        }, 3000); // 3 seconds duration
+        return () => clearInterval(interval);
+    }, []);
 
     const nextPage = () => {
         setPage((prev) => (prev + 1) % totalPages);
@@ -88,23 +101,21 @@ const Features = () => {
         setPage((prev) => (prev - 1 + totalPages) % totalPages);
     };
 
-    const currentProjects = projects.slice(page * 3, (page + 1) * 3);
-
     return (
         <section className="py-16 bg-black overflow-hidden relative">
             <div className="container mx-auto px-6 max-w-[1400px]">
 
-                {/* Header */}
-                <div className="flex justify-between items-end mb-12">
+                {/* Header - Adjusted for Mobile Alignment */}
+                <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-12 gap-6">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         className="max-w-xl"
                     >
-                        <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+                        <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 md:mb-6">
                             Our Work
                         </h2>
-                        <p className="text-white/60 text-lg">
+                        <p className="text-white/60 text-base md:text-lg">
                             Transforming industries with intelligent technology and design.
                         </p>
                     </motion.div>
@@ -112,20 +123,20 @@ const Features = () => {
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
+                        className="self-start md:self-auto"
                     >
                         <Link
                             to="/case-study"
-                            className="group flex items-center gap-2 text-white border border-white/20 px-6 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300"
+                            className="group flex items-center gap-2 text-white border border-white/20 px-5 py-2.5 md:px-6 md:py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300 text-sm md:text-base"
                         >
                             <span>View Case Studies</span>
-                            <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
+                            <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 group-hover:rotate-45 transition-transform" />
                         </Link>
                     </motion.div>
                 </div>
 
-                {/* Carousel Container */}
-                <div className="relative">
-
+                {/* DESKTOP VIEW: Grid of 3 */}
+                <div className="hidden md:block relative">
                     {/* Navigation Buttons (Absolute) */}
                     <div className="absolute top-1/2 left-0 -translate-y-1/2 z-20">
                         <button
@@ -145,7 +156,6 @@ const Features = () => {
                         </button>
                     </div>
 
-                    {/* Cards Slider */}
                     <div className="overflow-hidden min-h-[500px]">
                         <AnimatePresence mode="wait">
                             <motion.div
@@ -157,59 +167,7 @@ const Features = () => {
                                 className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[500px]"
                             >
                                 {currentProjects.map((project) => (
-                                    <div
-                                        key={project.id}
-                                        className={`relative rounded-2xl overflow-hidden group cursor-pointer ${project.bgColor} ${project.textColor || 'text-white'}`}
-                                    >
-                                        {/* Background Image logic */}
-                                        {project.bgImage && (
-                                            <div className="absolute inset-0">
-                                                {/* Fallback gradient if no image file */}
-                                                <div className={`absolute inset-0 bg-gradient-to-br ${project.bgGradient}`} />
-                                                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
-                                            </div>
-                                        )}
-
-                                        {/* Content Container */}
-                                        <div className="relative z-10 h-full flex flex-col justify-between p-6">
-
-                                            {/* Top Content (Logo/Quote) */}
-                                            <div>
-                                                {project.logo && (
-                                                    <div className="text-3xl font-black tracking-tighter mb-8 opacity-80 italic">
-                                                        {project.logo}
-                                                    </div>
-                                                )}
-
-                                                {project.quote && (
-                                                    <blockquote className="text-lg md:text-xl leading-relaxed font-medium opacity-90">
-                                                        {project.quote}
-                                                    </blockquote>
-                                                )}
-                                            </div>
-
-                                            {/* Bottom Content */}
-                                            <div className="mt-auto">
-                                                {project.description && (
-                                                    <p className={`text-xl md:text-2xl font-medium mb-4 leading-tight ${project.bgImage ? 'text-white' : ''}`}>
-                                                        {project.description}
-                                                    </p>
-                                                )}
-
-                                                <div className="space-y-1">
-                                                    <h3 className={`text-lg font-bold ${project.bgImage ? 'text-white' : ''}`}>
-                                                        {project.title}
-                                                    </h3>
-                                                    <p className={`text-sm font-medium opacity-60 uppercase tracking-wide ${project.bgImage ? 'text-white' : ''}`}>
-                                                        {project.category}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* Hover Overlay for all cards */}
-                                        <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/20 rounded-2xl transition-colors duration-300 pointer-events-none" />
-                                    </div>
+                                    <ProjectCard key={project.id} project={project} />
                                 ))}
                             </motion.div>
                         </AnimatePresence>
@@ -226,11 +184,92 @@ const Features = () => {
                             />
                         ))}
                     </div>
-
                 </div>
+
+                {/* MOBILE VIEW: Single Card Auto-Slider */}
+                <div className="md:hidden relative min-h-[450px]">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={mobileIndex}
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -50 }}
+                            transition={{ duration: 0.5 }}
+                            className="h-[450px]"
+                        >
+                            <ProjectCard project={projects[mobileIndex]} />
+                        </motion.div>
+                    </AnimatePresence>
+
+                    {/* Mobile Indicators */}
+                    <div className="flex justify-center gap-2 mt-6">
+                        {projects.map((_, i) => (
+                            <div
+                                key={i}
+                                className={`h-1.5 rounded-full transition-all duration-300 ${mobileIndex === i ? "w-6 bg-white" : "w-1.5 bg-white/20"
+                                    }`}
+                            />
+                        ))}
+                    </div>
+                </div>
+
             </div>
         </section>
     );
 };
+
+const ProjectCard = ({ project }) => (
+    <div
+        className={`relative rounded-2xl overflow-hidden group cursor-pointer ${project.bgColor} ${project.textColor || 'text-white'} h-full`}
+    >
+        {/* Background Image logic */}
+        {project.bgImage && (
+            <div className="absolute inset-0">
+                {/* Fallback gradient if no image file */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${project.bgGradient}`} />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
+            </div>
+        )}
+
+        {/* Content Container */}
+        <div className="relative z-10 h-full flex flex-col justify-between p-6">
+            {/* Top Content (Logo/Quote) */}
+            <div>
+                {project.logo && (
+                    <div className="text-3xl font-black tracking-tighter mb-8 opacity-80 italic">
+                        {project.logo}
+                    </div>
+                )}
+
+                {project.quote && (
+                    <blockquote className="text-lg leading-relaxed font-medium opacity-90">
+                        {project.quote}
+                    </blockquote>
+                )}
+            </div>
+
+            {/* Bottom Content */}
+            <div className="mt-auto pt-6">
+                {project.description && (
+                    <p className={`text-xl font-medium mb-4 leading-tight ${project.bgImage ? 'text-white' : ''}`}>
+                        {project.description}
+                    </p>
+                )}
+
+                <div className="space-y-1">
+                    <h3 className={`text-lg font-bold ${project.bgImage ? 'text-white' : ''}`}>
+                        {project.title}
+                    </h3>
+                    <p className={`text-sm font-medium opacity-60 uppercase tracking-wide ${project.bgImage ? 'text-white' : ''}`}>
+                        {project.category}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        {/* Hover Overlay */}
+        <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/20 rounded-2xl transition-colors duration-300 pointer-events-none" />
+    </div>
+);
 
 export default Features;

@@ -67,17 +67,17 @@ const Hero = () => {
                     transition={{ duration: 0.5, delay: 0.3 }}
                     className="flex flex-col sm:flex-row items-center gap-4"
                 >
-                    <Button size="lg" className="group">
+                    <Button size="lg" className="w-full sm:w-auto group shadow-[0_0_30px_rgba(255,255,255,0.6)] md:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
                         Get started
                         <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
                     </Button>
                     <Button
                         variant="secondary"
                         size="lg"
-                        className="group"
+                        className="w-full sm:w-auto group bg-white text-black border-white md:text-white md:bg-white/10 md:border-white/10 hover:bg-white/90 md:hover:bg-white/20"
                         onClick={() => setShowVideo(true)}
                     >
-                        <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform fill-white" />
+                        <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform fill-black md:fill-white" />
                         Introduction
                     </Button>
                 </motion.div>
@@ -122,7 +122,7 @@ const Hero = () => {
                 )}
             </AnimatePresence>
 
-            <div className="absolute bottom-0 w-full h-96 bg-gradient-to-t from-black via-black/80 to-transparent z-10 pointer-events-none" />
+            <div className="absolute bottom-0 w-full h-32 md:h-96 bg-gradient-to-t from-black via-black/80 to-transparent z-10 pointer-events-none" />
 
         </section>
     );

@@ -43,7 +43,7 @@ const PersonalNoteSection = () => {
                     opacity,
                     y,
                     scale,
-                    filter: useTransform(blur, (value) => `blur(${value}px)`)
+                    filter: useTransform(blur, (value) => (typeof window !== 'undefined' && window.innerWidth < 768 ? 'none' : `blur(${value}px)`))
                 }}
             >
                 <div className="grid md:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
