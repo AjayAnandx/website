@@ -26,7 +26,7 @@ const services = [
         tags: ["AI Strategy", "ML Models", "Automation"],
         image: "/ai-app.jpg",
         accentColor: "purple",
-        link: "/ai-consulting"
+        link: "/ai-automation"
     },
     {
         title: "Course Platform",

@@ -149,10 +149,10 @@ const FeatureCard = ({ children, className, delay = 0 }) => {
     );
 };
 
-const SoftwareDevelopmentFeatures = () => {
+const AIAutomationFeatures = () => {
     return (
         <section className="min-h-screen w-full py-24 px-6 md:px-12 lg:px-24 text-white relative z-10">
-
+            {/* Same content... but I should just match the lines I am replacing */}
             <div className="max-w-7xl mx-auto">
                 <motion.h2
                     className="text-4xl md:text-6xl font-sans font-medium mb-20 max-w-3xl leading-tight tracking-tight text-white/90"
@@ -258,4 +258,4 @@ const ArrowUpSmall = () => (
     </svg>
 )
 
-export default SoftwareDevelopmentFeatures;
+export default AIAutomationFeatures;

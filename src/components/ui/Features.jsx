@@ -218,58 +218,70 @@ const Features = () => {
     );
 };
 
-const ProjectCard = ({ project }) => (
-    <div
-        className={`relative rounded-2xl overflow-hidden group cursor-pointer ${project.bgColor} ${project.textColor || 'text-white'} h-full`}
-    >
-        {/* Background Image logic */}
-        {project.bgImage && (
-            <div className="absolute inset-0">
-                {/* Fallback gradient if no image file */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.bgGradient}`} />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
-            </div>
-        )}
+const ProjectCard = ({ project }) => {
+    const cardContent = (
+        <div
+            className={`relative rounded-2xl overflow-hidden group cursor-pointer ${project.bgColor} ${project.textColor || 'text-white'} h-full`}
+        >
+            {/* Background Image logic */}
+            {project.bgImage && (
+                <div className="absolute inset-0">
+                    {/* Fallback gradient if no image file */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${project.bgGradient}`} />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
+                </div>
+            )}
 
-        {/* Content Container */}
-        <div className="relative z-10 h-full flex flex-col justify-between p-6">
-            {/* Top Content (Logo/Quote) */}
-            <div>
-                {project.logo && (
-                    <div className="text-3xl font-black tracking-tighter mb-8 opacity-80 italic">
-                        {project.logo}
+            {/* Content Container */}
+            <div className="relative z-10 h-full flex flex-col justify-between p-6">
+                {/* Top Content (Logo/Quote) */}
+                <div>
+                    {project.logo && (
+                        <div className="text-3xl font-black tracking-tighter mb-8 opacity-80 italic">
+                            {project.logo}
+                        </div>
+                    )}
+
+                    {project.quote && (
+                        <blockquote className="text-lg leading-relaxed font-medium opacity-90">
+                            {project.quote}
+                        </blockquote>
+                    )}
+                </div>
+
+                {/* Bottom Content */}
+                <div className="mt-auto pt-6">
+                    {project.description && (
+                        <p className={`text-xl font-medium mb-4 leading-tight ${project.bgImage ? 'text-white' : ''}`}>
+                            {project.description}
+                        </p>
+                    )}
+
+                    <div className="space-y-1">
+                        <h3 className={`text-lg font-bold ${project.bgImage ? 'text-white' : ''}`}>
+                            {project.title}
+                        </h3>
+                        <p className={`text-sm font-medium opacity-60 uppercase tracking-wide ${project.bgImage ? 'text-white' : ''}`}>
+                            {project.category}
+                        </p>
                     </div>
-                )}
-
-                {project.quote && (
-                    <blockquote className="text-lg leading-relaxed font-medium opacity-90">
-                        {project.quote}
-                    </blockquote>
-                )}
-            </div>
-
-            {/* Bottom Content */}
-            <div className="mt-auto pt-6">
-                {project.description && (
-                    <p className={`text-xl font-medium mb-4 leading-tight ${project.bgImage ? 'text-white' : ''}`}>
-                        {project.description}
-                    </p>
-                )}
-
-                <div className="space-y-1">
-                    <h3 className={`text-lg font-bold ${project.bgImage ? 'text-white' : ''}`}>
-                        {project.title}
-                    </h3>
-                    <p className={`text-sm font-medium opacity-60 uppercase tracking-wide ${project.bgImage ? 'text-white' : ''}`}>
-                        {project.category}
-                    </p>
                 </div>
             </div>
-        </div>
 
-        {/* Hover Overlay */}
-        <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/20 rounded-2xl transition-colors duration-300 pointer-events-none" />
-    </div>
-);
+            {/* Hover Overlay */}
+            <div className="absolute inset-0 border-2 border-transparent group-hover:border-white/20 rounded-2xl transition-colors duration-300 pointer-events-none" />
+        </div>
+    );
+
+    if (project.link) {
+        return (
+            <Link to={project.link} className="block h-full">
+                {cardContent}
+            </Link>
+        );
+    }
+
+    return cardContent;
+};
 
 export default Features;

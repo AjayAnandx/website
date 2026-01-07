@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import SoftwareDevelopmentHero from '../components/ui/SoftwareDevelopmentHero';
-import SoftwareDevelopmentFeatures from '../components/ui/SoftwareDevelopmentFeatures';
-import SoftwareDevelopmentCTA from '../components/ui/SoftwareDevelopmentCTA';
+import AIAutomationHero from '../components/ui/AIAutomationHero';
+import AIAutomationFeatures from '../components/ui/AIAutomationFeatures';
+import AIAutomationFoundation from '../components/ui/AIAutomationFoundation';
+import AIAutomationProcess from '../components/ui/AIAutomationProcess';
+import AIAutomationCTA from '../components/ui/AIAutomationCTA';
 
-const SoftwareDevelopmentPage = () => {
+const AIAutomationPage = () => {
     const containerRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -26,9 +28,10 @@ const SoftwareDevelopmentPage = () => {
             className="min-h-[200vh]"
             style={{ backgroundColor }}
         >
-            <SoftwareDevelopmentHero />
-            <SoftwareDevelopmentFeatures />
-            <SoftwareDevelopmentCTA />
+            <AIAutomationHero />
+            <AIAutomationFeatures />
+            <AIAutomationFoundation />
+            <AIAutomationProcess />
 
             {/* Footer placeholder padding */}
             <div className="h-20" />
@@ -36,4 +39,4 @@ const SoftwareDevelopmentPage = () => {
     );
 };
 
-export default SoftwareDevelopmentPage;
+export default AIAutomationPage;
