@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowDown } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowDown, ArrowLeft } from 'lucide-react';
 
 const CoursePlatformHero = () => {
     const { scrollY } = useScroll();
@@ -29,6 +30,14 @@ const CoursePlatformHero = () => {
 
     return (
         <section className="relative h-screen w-full overflow-hidden bg-gradient-to-b from-[#050505] via-[#111420] to-[#2a3555] flex flex-col justify-center px-8 md:px-20 lg:px-32">
+
+            {/* Back Button */}
+            <Link to="/#service" className="absolute top-32 left-8 md:left-20 lg:left-32 z-50 flex items-center gap-2 text-white/60 hover:text-white transition-colors group">
+                <div className="p-2 border border-white/20 rounded-full group-hover:border-white/50 transition-colors">
+                    <ArrowLeft className="w-4 h-4" />
+                </div>
+                <span className="text-xs font-medium tracking-[0.2em] uppercase">Back</span>
+            </Link>
 
             {/* Ambient Background Glow */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
