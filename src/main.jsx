@@ -10,6 +10,8 @@ import ContactPage from './pages/ContactPage.jsx';
 import AIConsultingPage from './pages/AIConsultingPage.jsx';
 import CoursePlatformPage from './pages/CoursePlatformPage.jsx';
 import AIAutomationPage from './pages/AIAutomationPage.jsx';
+import SoftwareDevelopmentPage from './pages/SoftwareDevelopmentPage.jsx';
+import WebsiteDevelopmentPage from './pages/WebsiteDevelopmentPage.jsx';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ClickSpark from './components/ui/ClickSpark';
@@ -67,6 +69,8 @@ const MainApp = () => {
             <Route path="/ai-consulting" element={<AIConsultingPage />} />
             <Route path="/course-platform" element={<CoursePlatformPage />} />
             <Route path="/ai-automation" element={<AIAutomationPage />} />
+            <Route path="/software-development" element={<SoftwareDevelopmentPage />} />
+            <Route path="/website-development" element={<WebsiteDevelopmentPage />} />
           </Routes>
           <Footer />
           <ClickSpark />

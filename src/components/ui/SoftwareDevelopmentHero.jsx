@@ -2,14 +2,14 @@ import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 
-const CoursePlatformHero = () => {
+const SoftwareDevelopmentHero = () => {
     const { scrollY } = useScroll();
 
     // Parallax effect for text container
     const yText = useTransform(scrollY, [0, 500], [0, 100]);
     const opacityText = useTransform(scrollY, [0, 300], [1, 0]);
 
-    const text = "Turn your expertise into an empire. We build powerful course platforms that engage students and maximize revenue.";
+    const text = "From concept to code, we engineer high-performance software solutions that scale with your vision and drive business growth.";
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -32,7 +32,7 @@ const CoursePlatformHero = () => {
 
             {/* Ambient Background Glow */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div className="absolute top-[-20%] left-[-10%] w-[40%] h-[40%] bg-green-900/10 blur-[150px] rounded-full mix-blend-screen" />
+                <div className="absolute top-[-20%] left-[-10%] w-[40%] h-[40%] bg-blue-900/10 blur-[150px] rounded-full mix-blend-screen" />
             </div>
 
             <motion.div
@@ -40,7 +40,7 @@ const CoursePlatformHero = () => {
                 style={{ y: yText, opacity: opacityText }}
             >
                 <motion.h1
-                    className="text-3xl md:text-5xl lg:text-5xl font-serif leading-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-gray-400 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] tracking-wide pb-2"
+                    className="text-3xl md:text-5xl lg:text-6xl font-serif leading-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-gray-400 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] tracking-wide pb-2"
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
@@ -70,4 +70,4 @@ const CoursePlatformHero = () => {
     );
 };
 
-export default CoursePlatformHero;
+export default SoftwareDevelopmentHero;

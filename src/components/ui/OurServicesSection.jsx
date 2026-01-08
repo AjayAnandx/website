@@ -18,7 +18,7 @@ const services = [
         tags: ["Web Dev", "Responsive", "E-commerce"],
         image: "/website-dev.jpg",
         accentColor: "orange",
-        link: "/services"
+        link: "/website-development"
     },
     {
         title: "AI & Automation",

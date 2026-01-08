@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import CoursePlatformHero from '../components/ui/CoursePlatformHero';
-import CoursePlatformFeatures from '../components/ui/CoursePlatformFeatures';
-import CoursePlatformFoundation from '../components/ui/CoursePlatformFoundation';
-import CoursePlatformProcess from '../components/ui/CoursePlatformProcess';
+import SoftwareDevelopmentHero from '../components/ui/SoftwareDevelopmentHero';
+import SoftwareDevelopmentFeatures from '../components/ui/SoftwareDevelopmentFeatures';
+import SoftwareDevelopmentFoundation from '../components/ui/SoftwareDevelopmentFoundation';
+import SoftwareDevelopmentProcess from '../components/ui/SoftwareDevelopmentProcess';
 
-const CoursePlatformPage = () => {
+const SoftwareDevelopmentPage = () => {
     const containerRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -13,8 +13,6 @@ const CoursePlatformPage = () => {
     });
 
     // Seamless background transition
-    // 0 -> 0.2 (Hero): Deep Green/Black
-    // 0.2 -> 0.5 (Features): Darker Carbon/Black
     const backgroundColor = useTransform(
         scrollYProgress,
         [0, 0.2, 0.8],
@@ -27,10 +25,10 @@ const CoursePlatformPage = () => {
             className="min-h-[200vh]"
             style={{ backgroundColor }}
         >
-            <CoursePlatformHero />
-            <CoursePlatformFeatures />
-            <CoursePlatformFoundation />
-            <CoursePlatformProcess />
+            <SoftwareDevelopmentHero />
+            <SoftwareDevelopmentFeatures />
+            <SoftwareDevelopmentFoundation />
+            <SoftwareDevelopmentProcess />
 
             {/* Footer placeholder padding */}
             <div className="h-20" />
@@ -38,4 +36,4 @@ const CoursePlatformPage = () => {
     );
 };
 
-export default CoursePlatformPage;
+export default SoftwareDevelopmentPage;

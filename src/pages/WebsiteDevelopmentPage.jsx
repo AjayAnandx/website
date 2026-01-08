@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import CoursePlatformHero from '../components/ui/CoursePlatformHero';
-import CoursePlatformFeatures from '../components/ui/CoursePlatformFeatures';
-import CoursePlatformFoundation from '../components/ui/CoursePlatformFoundation';
-import CoursePlatformProcess from '../components/ui/CoursePlatformProcess';
+import WebsiteDevelopmentHero from '../components/ui/WebsiteDevelopmentHero';
+import WebsiteDevelopmentFeatures from '../components/ui/WebsiteDevelopmentFeatures';
+import WebsiteDevelopmentFoundation from '../components/ui/WebsiteDevelopmentFoundation';
+import WebsiteDevelopmentProcess from '../components/ui/WebsiteDevelopmentProcess';
 
-const CoursePlatformPage = () => {
+const WebsiteDevelopmentPage = () => {
     const containerRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -13,8 +13,6 @@ const CoursePlatformPage = () => {
     });
 
     // Seamless background transition
-    // 0 -> 0.2 (Hero): Deep Green/Black
-    // 0.2 -> 0.5 (Features): Darker Carbon/Black
     const backgroundColor = useTransform(
         scrollYProgress,
         [0, 0.2, 0.8],
@@ -27,10 +25,10 @@ const CoursePlatformPage = () => {
             className="min-h-[200vh]"
             style={{ backgroundColor }}
         >
-            <CoursePlatformHero />
-            <CoursePlatformFeatures />
-            <CoursePlatformFoundation />
-            <CoursePlatformProcess />
+            <WebsiteDevelopmentHero />
+            <WebsiteDevelopmentFeatures />
+            <WebsiteDevelopmentFoundation />
+            <WebsiteDevelopmentProcess />
 
             {/* Footer placeholder padding */}
             <div className="h-20" />
@@ -38,4 +36,4 @@ const CoursePlatformPage = () => {
     );
 };
 
-export default CoursePlatformPage;
+export default WebsiteDevelopmentPage;

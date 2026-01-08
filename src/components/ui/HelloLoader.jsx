@@ -4,11 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 const greetings = [
     "Hello",
     "Bonjour",
-    "Ciao",
     "Olà",
     "やあ",
-    "Hallå",
-    "Guten tag",
     "Hallo"
 ];
 
@@ -25,8 +22,9 @@ const HelloLoader = ({ onComplete }) => {
             return () => clearTimeout(timer);
         }
 
-        // Uniform timing for all words "slowly and equal gap"
-        const duration = 800;
+        // Dynamic timing: longer for "Hello" and "Hallo"
+        const currentGreeting = greetings[index];
+        const duration = (currentGreeting === "Hello" || currentGreeting === "Hallo") ? 800 : 400;
 
         const timer = setTimeout(() => {
             setIndex((prev) => prev + 1);
@@ -44,15 +42,15 @@ const HelloLoader = ({ onComplete }) => {
                 transition: { duration: 1.1, ease: [0.25, 1, 0.5, 1] } // Matches site reveal
             }}
         >
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
                 {index < greetings.length && (
                     <motion.h1
                         key={greetings[index]}
-                        className="text-4xl md:text-6xl font-medium text-white tracking-tight font-sans"
-                        initial={{ opacity: 0, y: 10 }}
+                        className="text-4xl md:text-6xl font-medium text-white tracking-tight font-sans absolute"
+                        initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10, position: 'absolute' }}
-                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
                     >
                         {greetings[index]}
                     </motion.h1>

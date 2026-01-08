@@ -27,7 +27,7 @@ const VisionLoader = ({ onComplete }) => {
                 setShowLoadingBar(true);
                 setPhase(1);
             }
-        }, 80); // Typing speed
+        }, 30); // Faster typing speed
 
         return () => clearInterval(typingInterval);
     }, [phase]);
@@ -99,13 +99,14 @@ const VisionLoader = ({ onComplete }) => {
                         <motion.span
                             key={i}
                             className="inline-block"
-                            initial={{ opacity: 0, y: 10 }}
+                            initial={{ opacity: 0, y: 10, filter: 'blur(10px)' }}
                             animate={{
                                 opacity: isTyped ? 1 : 0,
                                 y: isTyped ? 0 : 10,
+                                filter: isTyped ? 'blur(0px)' : 'blur(10px)'
                             }}
                             transition={{
-                                duration: 0.15,
+                                duration: 0.4,
                                 ease: 'easeOut',
                             }}
                         >
@@ -114,7 +115,7 @@ const VisionLoader = ({ onComplete }) => {
                     );
                 })}
                 {wordIndex < words.length - 1 && (
-                    <span className="inline-block w-4" />
+                    <span className="inline-block w-2" />
                 )}
             </span>
         ));
@@ -124,26 +125,35 @@ const VisionLoader = ({ onComplete }) => {
         <AnimatePresence>
             {phase < 3 && (
                 <motion.div
-                    className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black"
+                    className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black perspective-1000"
                     initial={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5, ease: 'easeInOut' }}
                 >
 
-                    {/* Text Container */}
+                    {/* Glass Container */}
                     <motion.div
-                        className="relative z-10 text-center"
-                        animate={phase >= 2 ? { opacity: 0, scale: 0.8 } : { opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3 }}
+                        className="relative z-10 text-center p-12 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_50px_-12px_rgba(255,255,255,0.1)]"
+                        initial={{ opacity: 0, scale: 0.9, rotateX: 10 }}
+                        animate={phase >= 2
+                            ? { opacity: 0, scale: 0.8, rotateX: 0 }
+                            : { opacity: 1, scale: 1, rotateX: 0 }
+                        }
+                        transition={{
+                            duration: 0.6,
+                            type: "spring",
+                            stiffness: 100,
+                            damping: 20
+                        }}
                     >
                         {/* Main Text */}
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-8">
+                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6 drop-shadow-lg">
                             {renderText()}
                         </h1>
 
                         {/* Loading Bar */}
                         <motion.div
-                            className="relative w-64 md:w-80 mx-auto h-[2px] bg-white/10 rounded-full overflow-hidden"
+                            className="relative w-64 md:w-80 mx-auto h-[4px] bg-white/5 rounded-full overflow-hidden backdrop-blur-sm border border-white/5"
                             initial={{ opacity: 0, scaleX: 0 }}
                             animate={{
                                 opacity: showLoadingBar ? 1 : 0,
@@ -156,24 +166,15 @@ const VisionLoader = ({ onComplete }) => {
                                 className="absolute inset-y-0 left-0 rounded-full"
                                 style={{
                                     width: `${loadingProgress * 100}%`,
-                                    background: 'linear-gradient(90deg, rgba(139,92,246,0.8) 0%, rgba(168,85,247,1) 50%, rgba(192,132,252,1) 100%)',
-                                    boxShadow: '0 0 20px rgba(168,85,247,0.5), 0 0 40px rgba(168,85,247,0.3)',
-                                }}
-                            />
-
-                            {/* Glow Effect */}
-                            <motion.div
-                                className="absolute inset-y-0 left-0 rounded-full blur-sm"
-                                style={{
-                                    width: `${loadingProgress * 100}%`,
-                                    background: 'linear-gradient(90deg, rgba(139,92,246,0.6) 0%, rgba(168,85,247,0.8) 100%)',
+                                    background: 'linear-gradient(90deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0.8) 100%)',
+                                    boxShadow: '0 0 20px rgba(255,255,255,0.5)',
                                 }}
                             />
                         </motion.div>
 
                         {/* Loading Percentage */}
                         <motion.p
-                            className="mt-4 text-white/40 text-sm font-mono tracking-widest"
+                            className="mt-4 text-white/60 text-sm font-mono tracking-widest"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: showLoadingBar ? 1 : 0 }}
                             transition={{ duration: 0.3, delay: 0.2 }}
