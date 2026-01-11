@@ -6,7 +6,7 @@ const ServiceHero = () => {
         <section className="relative w-full min-h-[60vh] flex items-center justify-center overflow-hidden pb-0" style={{
             background: 'linear-gradient(to bottom, #000000 0%, #1a0a2e 40%, #0f0520 70%, #000000 100%)'
         }}>
-            <div className="container mx-auto px-6 relative z-10 text-center py-20">
+            <div className="container mx-auto px-6 relative z-10 text-center pt-48 pb-20">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}

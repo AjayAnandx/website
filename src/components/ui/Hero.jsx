@@ -13,7 +13,7 @@ const Hero = () => {
         <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-12 overflow-hidden bg-black">
             {/* Spline 3D Background */}
             {/* FloatingLines Background */}
-            <div className="absolute inset-0 z-0 w-full h-full opacity-40">
+            <div className="absolute inset-0 z-0 w-full h-full opacity-70">
                 <div style={{ width: '100%', height: '100%', position: 'relative' }}>
                     <FloatingLines
                         enabledWaves={['top', 'middle', 'bottom']}
@@ -122,7 +122,7 @@ const Hero = () => {
                 )}
             </AnimatePresence>
 
-            <div className="absolute bottom-0 w-full h-32 md:h-96 bg-gradient-to-t from-black via-black/80 to-transparent z-10 pointer-events-none" />
+            <div className="absolute bottom-0 w-full h-32 md:h-96 bg-gradient-to-t from-black via-black/30 to-transparent z-10 pointer-events-none" />
 
         </section>
     );

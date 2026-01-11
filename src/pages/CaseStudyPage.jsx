@@ -1,14 +1,10 @@
 import React from 'react';
-import CaseStudyHero from '../components/ui/CaseStudyHero';
-import ProjectCardsGrid from '../components/ui/ProjectCardsGrid';
-import ProcessSection from '../components/ui/ProcessSection';
+import CaseStudyList from '../components/ui/CaseStudyList';
 
 const CaseStudyPage = () => {
     return (
         <>
-            <CaseStudyHero />
-            <ProjectCardsGrid />
-            <ProcessSection />
+            <CaseStudyList />
         </>
     );
 };
