@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import ErrorBoundary from './components/ui/ErrorBoundary';
 import App from './App.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import ServicesPage from './pages/ServicesPage.jsx';
@@ -82,10 +83,14 @@ const MainApp = () => {
   );
 };
 
+
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <MainApp />
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <MainApp />
+      </BrowserRouter>
+    </ErrorBoundary>
   </React.StrictMode>,
 );

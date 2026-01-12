@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-const BookingTimeSlots = ({ selectedDate }) => {
+const BookingTimeSlots = ({ selectedDate, onTimeSelect }) => {
     const [is24Hour, setIs24Hour] = useState(false);
 
     // Example available times
@@ -57,6 +57,7 @@ const BookingTimeSlots = ({ selectedDate }) => {
                 {timeSlots.map((time, index) => (
                     <motion.button
                         key={time}
+                        onClick={() => onTimeSelect && onTimeSelect(time)}
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.05 }}
