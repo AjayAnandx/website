@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ContactHero = () => {
     return (
@@ -39,9 +40,11 @@ const ContactHero = () => {
                 </p>
 
                 {/* CTA Button */}
-                <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white text-lg font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/25">
-                    Fill The Form Out!
-                </button>
+                <Link to="/book-call">
+                    <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white text-lg font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/25">
+                        Fill The Form Out!
+                    </button>
+                </Link>
             </div>
 
             {/* Gradient Fade to Bottom Section */}
