@@ -9,7 +9,7 @@ const MONTHS = [
 ];
 
 const BookingCalendar = ({ selectedDate, onDateSelect }) => {
-    const [currentDate, setCurrentDate] = useState(new Date(2026, 0, 1)); // Start at Jan 2026 as per design
+    const [currentDate, setCurrentDate] = useState(new Date());
 
     const getDaysInMonth = (date) => {
         return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -46,18 +46,32 @@ const BookingCalendar = ({ selectedDate, onDateSelect }) => {
         onDateSelect(new Date(currentDate.getFullYear(), currentDate.getMonth(), day));
     };
 
+    // Helper to check if a date is in the past
+    const isDateDisabled = (day) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const dateToCheck = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+
+        // Disable past dates
+        if (dateToCheck < today) return true;
+
+        // Disable weekends (optional, but matching previous logic)
+        const dayOfWeek = dateToCheck.getDay();
+        return dayOfWeek === 0 || dayOfWeek === 6;
+    };
+
     return (
         <div className="w-full">
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
-                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-900">
+                <h2 className="text-xl font-bold text-gray-800 dark:text-white">
                     {MONTHS[currentDate.getMonth()]} <span className="text-gray-400 font-normal">{currentDate.getFullYear()}</span>
                 </h2>
                 <div className="flex gap-1">
-                    <button onClick={prevMonth} className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors">
+                    <button onClick={prevMonth} className="w-8 h-8 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors">
                         <ChevronLeft className="w-4 h-4 text-gray-300" />
                     </button>
-                    <button onClick={nextMonth} className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors">
+                    <button onClick={nextMonth} className="w-8 h-8 flex items-center justify-center hover:bg-white/10 rounded-full transition-colors">
                         <ChevronRight className="w-4 h-4 text-gray-400" />
                     </button>
                 </div>
@@ -82,31 +96,21 @@ const BookingCalendar = ({ selectedDate, onDateSelect }) => {
                 {/* Days */}
                 {Array.from({ length: daysInMonth }).map((_, i) => {
                     const day = i + 1;
-                    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-                    const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
-                    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-
                     const selected = isSelected(day);
-
-                    // Logic to match the image's "Available Block" pattern:
-                    // In the image, dates 13, 14, 15, 16, 19, 20... are blocks.
-                    // 12 is text. 
-                    // This creates a visual logic of: Future Weekdays are Blocks.
-                    const isFuture = day > 12; // Hardcoding "today" as 12th for visual match to image
-                    const isAvailable = isFuture && !isWeekend;
+                    const disabled = isDateDisabled(day);
 
                     return (
                         <div key={day} className="flex flex-col items-center justify-center">
                             <motion.button
-                                whileHover={isAvailable || selected ? { scale: 1.05 } : {}}
-                                whileTap={isAvailable || selected ? { scale: 0.95 } : {}}
-                                onClick={() => handleDateClick(day)}
-                                disabled={!isAvailable && !selected} // Disable if not a block/selected
+                                whileHover={!disabled || selected ? { scale: 1.05 } : {}}
+                                whileTap={!disabled || selected ? { scale: 0.95 } : {}}
+                                onClick={() => !disabled && handleDateClick(day)}
+                                disabled={disabled && !selected}
                                 className={`
                                     relative h-12 w-12 flex items-center justify-center rounded-lg text-sm transition-all duration-200
                                     ${selected
                                         ? 'bg-[var(--color-accent)] text-white shadow-lg shadow-[var(--color-accent)]/20 font-bold z-10'
-                                        : isAvailable
+                                        : !disabled
                                             ? 'bg-white/5 text-gray-200 font-semibold hover:bg-white/10'
                                             : 'text-gray-600 font-medium cursor-default bg-transparent'
                                     }
