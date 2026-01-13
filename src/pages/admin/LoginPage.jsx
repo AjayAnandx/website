@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
-import { Loader2, Lock, User } from 'lucide-react';
+import { Loader2, Lock, Mail } from 'lucide-react';
 
 const LoginPage = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -20,15 +20,12 @@ const LoginPage = () => {
         setError('');
         setIsLoading(true);
 
-        // Simulate network delay for better UX
-        await new Promise(resolve => setTimeout(resolve, 800));
-
-        const result = login(username, password);
+        const result = await login(email, password);
 
         if (result.success) {
             navigate(from, { replace: true });
         } else {
-            setError(result.error);
+            setError(result.error || 'Failed to login');
             setIsLoading(false);
         }
     };
@@ -62,15 +59,15 @@ const LoginPage = () => {
                         )}
 
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-300">Username</label>
+                            <label className="text-sm font-medium text-gray-300">Email Address</label>
                             <div className="relative">
-                                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                                 <input
-                                    type="text"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all"
-                                    placeholder="Enter username"
+                                    placeholder="admin@example.com"
                                     required
                                 />
                             </div>
