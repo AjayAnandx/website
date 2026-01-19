@@ -11,6 +11,7 @@ const navLinks = [
     { name: "About", href: "/about", isRoute: true },
     { name: "Service", href: "/services", isRoute: true },
     { name: "Case Study", href: "/case-study", isRoute: true },
+    { name: "Careers", href: "/careers", isRoute: true },
     { name: "Contact", href: "/contact", isRoute: true },
 ];
 

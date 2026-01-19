@@ -6,7 +6,6 @@ import OurServicesSection from "./components/ui/OurServicesSection";
 import ResultsSection from "./components/ui/ResultsSection";
 import ContactSection from "./components/ui/ContactSection";
 import OurClientsSection from "./components/ui/OurClientsSection";
-
 function App() {
   return (
     <>

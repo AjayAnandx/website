@@ -5,6 +5,7 @@ import Button from "./Button";
 import { ChevronRight, Play, X } from "lucide-react";
 import TextType from "./TextType";
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
     const [showVideo, setShowVideo] = useState(false);
@@ -67,10 +68,12 @@ const Hero = () => {
                     transition={{ duration: 0.5, delay: 0.3 }}
                     className="flex flex-col sm:flex-row items-center gap-4"
                 >
-                    <Button size="lg" className="w-full sm:w-auto group shadow-[0_0_30px_rgba(255,255,255,0.6)] md:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                        Get started
-                        <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
-                    </Button>
+                    <Link to="/services" className="w-full sm:w-auto">
+                        <Button size="lg" className="w-full group shadow-[0_0_30px_rgba(255,255,255,0.6)] md:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                            Get started
+                            <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                        </Button>
+                    </Link>
                     <Button
                         variant="secondary"
                         size="lg"

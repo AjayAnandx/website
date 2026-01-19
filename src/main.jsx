@@ -22,6 +22,8 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ClickSpark from './components/ui/ClickSpark';
 import HelloLoader from './components/ui/HelloLoader';
+import CareersPage from './pages/CareersPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 import './index.css';
 
 const MainApp = () => {
@@ -79,6 +81,7 @@ const MainApp = () => {
               <Route path="/software-development" element={<SoftwareDevelopmentPage />} />
               <Route path="/website-development" element={<WebsiteDevelopmentPage />} />
               <Route path="/book-call" element={<BookCallPage />} />
+              <Route path="/careers" element={<CareersPage />} />
 
               {/* Admin Routes */}
               <Route path="/admin/login" element={<LoginPage />} />
@@ -87,6 +90,8 @@ const MainApp = () => {
                   <DashboardPage />
                 </ProtectedRoute>
               } />
+              {/* Catch-all Route for 404 */}
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
             {!location.pathname.startsWith('/admin') && <Footer />}
             <ClickSpark />
