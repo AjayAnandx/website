@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { LogOut, ArrowLeft } from 'lucide-react';
 import DashboardSidebar from '../../components/admin/DashboardSidebar';
 import AppointmentsView from '../../components/admin/AppointmentsView';
+import ApplicationsView from '../../components/admin/ApplicationsView';
 import UsersView from '../../components/admin/UsersView';
 
 const DashboardPage = () => {
@@ -20,6 +21,8 @@ const DashboardPage = () => {
         switch (activeTab) {
             case 'appointments':
                 return <AppointmentsView />;
+            case 'applications':
+                return <ApplicationsView />;
             case 'users':
                 return <UsersView />;
             case 'settings':

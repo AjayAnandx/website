@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, User, Mail, Phone, Link as LinkIcon, CheckCircle2, ChevronDown } from 'lucide-react';
+import { supabase } from '../../lib/supabase';
 import Button from '../ui/Button';
 
 const ApplicationModal = ({ isOpen, onClose, role }) => {
@@ -33,20 +34,55 @@ const ApplicationModal = ({ isOpen, onClose, role }) => {
         }
     }, [isOpen, role]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        // Simulate API call
-        console.log("Submitting Form Data:", formData);
-        setTimeout(() => {
-            setIsSubmitting(false);
+
+        try {
+            // Prepare answers JSON from dynamic fields
+            const standardFields = ['fullName', 'email', 'mobile', 'city', 'college', 'degree', 'year', 'registrationNo', 'mode', 'duration', 'startDate', 'dailyAvailability', 'resumeLink'];
+            const answers = {};
+            Object.keys(formData).forEach(key => {
+                if (!standardFields.includes(key)) {
+                    answers[key] = formData[key];
+                }
+            });
+
+            const { error } = await supabase
+                .from('applications')
+                .insert([{
+                    full_name: formData.fullName,
+                    email: formData.email,
+                    mobile: formData.mobile,
+                    city: formData.city,
+                    college: formData.college,
+                    degree: formData.degree,
+                    year: formData.year,
+                    registration_no: formData.registrationNo,
+                    mode: formData.mode,
+                    duration: formData.duration,
+                    start_date: formData.startDate,
+                    daily_availability: formData.dailyAvailability,
+                    role_title: role.title,
+                    resume_link: formData.resumeLink,
+                    answers: answers,
+                    status: 'pending'
+                }]);
+
+            if (error) throw error;
+
             setIsSuccess(true);
             setTimeout(() => {
                 onClose();
                 setIsSuccess(false);
                 setFormData({});
             }, 3000);
-        }, 1500);
+        } catch (error) {
+            console.error('Error submitting application:', error);
+            alert('Failed to submit application. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const handleChange = (e) => {

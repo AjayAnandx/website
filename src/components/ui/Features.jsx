@@ -4,16 +4,15 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const projects = [
-    // Page 1
     {
         id: 1,
-        title: "Jupiter",
-        category: "AI, Data Science, Dashboards",
-        description: "Using AI to assess weather patterns across 3 trillion data points.",
-        image: "/project-weather.jpg", // Placeholder
+        title: "Pixel Arts VFX",
+        category: "VFX, Animation, Post-production",
+        description: "The Magic Behind the Screen - A compact digital lab specializing in high-end VFX services including Compositing, Matchmove, and Rotoscope.",
+        image: "/vfx_studio_background.png",
         bgColor: "bg-black",
         bgImage: true,
-        bgGradient: "from-blue-900/80 to-purple-900/80",
+        bgGradient: "from-black/60 via-transparent to-black/90",
         quote: null
     },
     {
@@ -102,35 +101,34 @@ const Features = () => {
     };
 
     return (
-        <section className="py-16 bg-black overflow-hidden relative">
+        <section className="py-24 bg-black overflow-hidden relative">
             <div className="container mx-auto px-6 max-w-[1400px]">
 
-                {/* Header - Adjusted for Mobile Alignment */}
-                <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-12 gap-6">
+                {/* Header */}
+                <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-16 gap-8">
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        className="max-w-xl"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        className="max-w-2xl"
                     >
-                        <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 md:mb-6">
-                            Our Work
+                        <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+                            Featured Work
                         </h2>
-                        <p className="text-white/60 text-base md:text-lg">
-                            Transforming industries with intelligent technology and design.
+                        <p className="text-white/60 text-lg md:text-xl font-light max-w-lg">
+                            We help world-class companies solve their toughest product challenges.
                         </p>
                     </motion.div>
 
                     <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        className="self-start md:self-auto"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
                     >
                         <Link
                             to="/case-study"
-                            className="group flex items-center gap-2 text-white border border-white/20 px-5 py-2.5 md:px-6 md:py-3 rounded-full hover:bg-white hover:text-black transition-all duration-300 text-sm md:text-base"
+                            className="group flex items-center gap-3 text-white border border-white/10 bg-white/5 backdrop-blur-sm px-8 py-4 rounded-full hover:bg-white hover:text-black transition-all duration-500 text-lg"
                         >
-                            <span>View Case Studies</span>
-                            <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 group-hover:rotate-45 transition-transform" />
+                            <span>Explore Our Work</span>
+                            <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
                         </Link>
                     </motion.div>
                 </div>
@@ -221,13 +219,20 @@ const Features = () => {
 const ProjectCard = ({ project }) => {
     const cardContent = (
         <div
-            className={`relative rounded-2xl overflow-hidden group cursor-pointer ${project.bgColor} ${project.textColor || 'text-white'} h-full`}
+            className={`relative rounded-2xl overflow-hidden group cursor-pointer ${project.bgColor} ${project.textColor || 'text-white'} h-full border border-white/5 hover:border-white/10 transition-colors duration-500`}
         >
             {/* Background Image logic */}
             {project.bgImage && (
                 <div className="absolute inset-0">
                     {/* Fallback gradient if no image file */}
                     <div className={`absolute inset-0 bg-gradient-to-br ${project.bgGradient}`} />
+                    {project.image && (
+                        <img
+                            src={project.image}
+                            alt={project.title}
+                            className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700"
+                        />
+                    )}
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
                 </div>
             )}

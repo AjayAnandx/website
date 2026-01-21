@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '../components/layout/Navbar';
-import FloatingLines from '../components/ui/FloatingLines';
+import Particles from '../components/ui/Particles';
 import ApplicationModal from '../components/careers/ApplicationModal';
 import { Badge } from '../components/ui/Badge';
 import { ArrowRight, Code, Megaphone, Settings } from 'lucide-react';
@@ -117,17 +117,19 @@ const CareersPage = () => {
                 <Navbar />
             </div>
 
-            {/* FloatingLines Background */}
+            {/* Particles Background */}
             <div className="absolute inset-0 z-0 w-full h-full opacity-30 pointer-events-none">
                 <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-                    <FloatingLines
-                        enabledWaves={['top', 'middle', 'bottom']}
-                        lineCount={[10, 15, 20]}
-                        lineDistance={[8, 6, 4]}
-                        bendRadius={5.0}
-                        bendStrength={-0.5}
-                        interactive={false}
-                        parallax={true}
+                    <Particles
+                        particleColors={["#ffffff"]}
+                        particleCount={700}
+                        particleSpread={10}
+                        speed={0.1}
+                        particleBaseSize={100}
+                        moveParticlesOnHover
+                        alphaParticles={false}
+                        disableRotation={false}
+                        pixelRatio={1}
                     />
                 </div>
             </div>

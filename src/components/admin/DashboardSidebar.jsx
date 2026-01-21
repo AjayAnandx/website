@@ -1,10 +1,11 @@
 import React from 'react';
-import { LayoutDashboard, Users, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, Settings, LogOut, Briefcase } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const DashboardSidebar = ({ activeTab, onTabChange, onLogout }) => {
     const mainNavItems = [
         { id: 'appointments', label: 'Appointments', icon: LayoutDashboard },
+        { id: 'applications', label: 'Job Applications', icon: Briefcase },
         { id: 'users', label: 'Manage Users', icon: Users },
     ];
 
