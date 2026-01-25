@@ -17,34 +17,34 @@ const projects = [
     },
     {
         id: 2,
-        title: "Shirt App & Best Apps",
-        category: "UI/UX, Mobile, Software, Data Science",
+        title: "Jayasim Labs & AI Masterclass",
+        category: "AI, Generative AI, Crypto, Automation, Digital Education",
         description: null,
-        image: null,
-        bgColor: "bg-[#F3F0FF]", // Light lavender
-        textColor: "text-black",
-        bgImage: false,
-        quote: "“Always well-staffed because of their team’s skill level... they bring in quality talent and maintain professionalism. We’ve had audits and advisors review the code, and everything is top-notch.”",
-        logo: "SHIRT"
+        image: "/elearning_bg.png",
+        bgColor: "bg-black",
+        bgImage: true,
+        bgGradient: "from-purple-900/80 to-indigo-900/80",
+        quote: "“The AI Masterclass completely transformed my business strategy... the techniques boosted my productivity by 500% and gave me the edge I needed to scale. It’s practical, game-changing content that delivers an incredible ROI for any digital professional.”",
+        logo: "JAYASIM LABS"
     },
     {
         id: 3,
-        title: "Marmon x Berkshire Hathaway",
-        category: "AI, Data Science",
-        description: "AI-powered inventory management.",
-        image: "/project-fruit.jpg", // Placeholder
+        title: "Atma Yogalaya x Modern Transformation",
+        category: "Vinyasa, Hatha, Meditation",
+        description: "Expert-led yoga for physical strength and mental clarity.",
+        image: "/yoga_bg.png",
         bgColor: "bg-black",
         bgImage: true,
-        bgGradient: "from-orange-900/80 to-red-900/80",
+        bgGradient: "from-stone-900/80 to-zinc-900/80",
         quote: null
     },
     // Page 2
     {
         id: 4,
-        title: "HealthGuard AI",
-        category: "Healthcare, ML, Compliance",
-        description: "Predictive analytics for patient readmission risks.",
-        image: "/project-health.jpg",
+        title: "Chase Away x Canine Wellness",
+        category: "Natural Repellent, DEET-Free, Pet Health",
+        description: "100% natural, chemical-free tick and insect repellent for pets and people.",
+        image: "/dog_running_bg.png",
         bgColor: "bg-black",
         bgImage: true,
         bgGradient: "from-emerald-900/80 to-teal-900/80",
@@ -52,25 +52,26 @@ const projects = [
     },
     {
         id: 5,
-        title: "EduFlow LMS",
-        category: "EdTech, Platform, Scale",
+        title: "Siruvani Estates",
+        category: "Coffee, Tea, Spices, Sustainable Agriculture",
         description: null,
-        image: null,
-        bgColor: "bg-[#E0F2FE]", // Light Blue
-        textColor: "text-black",
-        bgImage: false,
-        quote: "“The platform easily handled our 10x growth spike. The architecture is solid and the user experience is flawless. Highly recommended partner.”",
-        logo: "EDUFLOW"
+        image: "/coffee_drinking_bg.png",
+        bgColor: "bg-black",
+        bgImage: true,
+        bgGradient: "from-green-900/80 to-emerald-900/80",
+        quote: "“The freshness of the Arabica coffee and the rich aroma of the hand-picked tea are unmatched. It is rare to find a boutique estate that balances premium quality with such deep respect for the environment and tribal communities.”",
+        logo: "SIRUVANI GROUP ESTATES"
     },
     {
         id: 6,
-        title: "FinTech Secure",
-        category: "Finance, Security, Blockchain",
-        description: "Next-gen fraud detection system processing millions daily.",
-        image: "/project-fintech.jpg",
-        bgColor: "bg-black",
+        title: "Jayasim x AI Advisory",
+        category: "AI Strategy, Consulting, Automation",
+        description: "Strategic AI implementation and digital transformation for global enterprises.",
+        image: "/jayasim_text_bg.png",
+        bgColor: "bg-white",
         bgImage: true,
-        bgGradient: "from-indigo-900/80 to-blue-900/80",
+        bgGradient: "from-white to-gray-100",
+        textColor: "text-black",
         quote: null
     }
 ];
@@ -257,16 +258,16 @@ const ProjectCard = ({ project }) => {
                 {/* Bottom Content */}
                 <div className="mt-auto pt-6">
                     {project.description && (
-                        <p className={`text-xl font-medium mb-4 leading-tight ${project.bgImage ? 'text-white' : ''}`}>
+                        <p className={`text-xl font-medium mb-4 leading-tight ${project.bgImage && !project.textColor ? 'text-white' : ''}`}>
                             {project.description}
                         </p>
                     )}
 
                     <div className="space-y-1">
-                        <h3 className={`text-lg font-bold ${project.bgImage ? 'text-white' : ''}`}>
+                        <h3 className={`text-lg font-bold ${project.bgImage && !project.textColor ? 'text-white' : ''}`}>
                             {project.title}
                         </h3>
-                        <p className={`text-sm font-medium opacity-60 uppercase tracking-wide ${project.bgImage ? 'text-white' : ''}`}>
+                        <p className={`text-sm font-medium opacity-60 uppercase tracking-wide ${project.bgImage && !project.textColor ? 'text-white' : ''}`}>
                             {project.category}
                         </p>
                     </div>
