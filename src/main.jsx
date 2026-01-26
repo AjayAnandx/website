@@ -24,6 +24,7 @@ import ClickSpark from './components/ui/ClickSpark';
 import HelloLoader from './components/ui/HelloLoader';
 import CareersPage from './pages/CareersPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
+import AIChatbot from './components/ui/AIChatbot';
 import './index.css';
 
 const MainApp = () => {
@@ -95,6 +96,7 @@ const MainApp = () => {
             </Routes>
             {!location.pathname.startsWith('/admin') && <Footer />}
             <ClickSpark />
+            <AIChatbot />
           </div>
         </motion.div>
       </AuthProvider>

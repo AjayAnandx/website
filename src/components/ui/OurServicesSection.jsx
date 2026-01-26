@@ -3,40 +3,7 @@ import { ArrowRight, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import GlareHover from "./GlareHover";
 
-const services = [
-    {
-        title: "Software Development",
-        description: "Build robust software solutions from the ground up. Our team crafts scalable applications and enterprise systems tailored to your business needs.",
-        tags: ["Software Dev", "Full-Stack", "Custom Apps"],
-        image: "/software-dev.jpg",
-        accentColor: "blue",
-        link: "/software-development"
-    },
-    {
-        title: "Website Development",
-        description: "Design stunning, high-performance websites that drive results. We deliver modern web experiences with seamless functionality and user-centric design.",
-        tags: ["Web Dev", "Responsive", "E-commerce"],
-        image: "/website-dev.jpg",
-        accentColor: "orange",
-        link: "/website-development"
-    },
-    {
-        title: "AI & Automation",
-        description: "Create bespoke AI applications that transform your operations. Our experts build custom machine learning models and intelligent automations aligned with your goals.",
-        tags: ["AI Strategy", "ML Models", "Automation"],
-        image: "/ai-app.jpg",
-        accentColor: "purple",
-        link: "/ai-automation"
-    },
-    {
-        title: "Course Platform",
-        description: "Launch successful online courses with end-to-end support. We handle platform setup, content optimization, and marketing to maximize reach and conversions.",
-        tags: ["Course Launch", "LMS Setup", "Marketing"],
-        image: "/course-launch.jpg",
-        accentColor: "green",
-        link: "/course-platform"
-    }
-];
+import { services } from "../../constants/services";
 
 const serviceColors = {
     blue: "#3b82f6",
