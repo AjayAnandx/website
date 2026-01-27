@@ -5,17 +5,19 @@ const Loader = () => {
   return (
     <StyledWrapper>
       <div className="loader-wrapper">
-        <span className="loader-letter">G</span>
-        <span className="loader-letter">e</span>
-        <span className="loader-letter">n</span>
-        <span className="loader-letter">e</span>
-        <span className="loader-letter">r</span>
-        <span className="loader-letter">a</span>
-        <span className="loader-letter">t</span>
-        <span className="loader-letter">i</span>
-        <span className="loader-letter">n</span>
-        <span className="loader-letter">g</span>
         <div className="loader" />
+        <div className="letter-wrapper">
+          <span className="loader-letter">G</span>
+          <span className="loader-letter">e</span>
+          <span className="loader-letter">n</span>
+          <span className="loader-letter">e</span>
+          <span className="loader-letter">r</span>
+          <span className="loader-letter">a</span>
+          <span className="loader-letter">t</span>
+          <span className="loader-letter">i</span>
+          <span className="loader-letter">n</span>
+          <span className="loader-letter">g</span>
+        </div>
       </div>
     </StyledWrapper>
   );
@@ -27,26 +29,18 @@ const StyledWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 180px;
-    height: 180px;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
-    font-size: 1.2em;
-    font-weight: 300;
     color: white;
-    border-radius: 50%;
-    background-color: transparent;
     user-select: none;
+    gap: 6px;
   }
 
   .loader {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    width: 14px;
+    height: 14px;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     background-color: transparent;
-    animation: loader-rotate 2s linear infinite;
+    animation: loader-rotate 1.5s linear infinite;
     z-index: 0;
   }
 
@@ -54,26 +48,30 @@ const StyledWrapper = styled.div`
     0% {
       transform: rotate(90deg);
       box-shadow:
-        0 10px 20px 0 #fff inset,
-        0 20px 30px 0 #ad5fff inset,
-        0 60px 60px 0 #471eec inset;
+        0 1px 1px 0 #fff inset,
+        0 3px 5px 0 #ff5f9f inset,
+        0 4px 4px 0 #0693ff inset;
     }
     50% {
       transform: rotate(270deg);
+      background: #7c0911;
       box-shadow:
-        0 10px 20px 0 #fff inset,
-        0 20px 10px 0 #d60a47 inset,
-        0 40px 60px 0 #311e80 inset;
+        0 1px 1px 0 #fff inset,
+        0 3px 5px 0 #d60a47 inset,
+        0 4px 4px 0 #fbef19 inset;
     }
     100% {
       transform: rotate(450deg);
       box-shadow:
-        0 10px 20px 0 #fff inset,
-        0 20px 30px 0 #ad5fff inset,
-        0 60px 60px 0 #471eec inset;
+        0 1px 1px 0 #fff inset,
+        0 3px 5px 0 #ff5f9f inset,
+        0 4px 4px 0 #28a9ff inset;
     }
   }
-
+  .letter-wrapper {
+    display: flex;
+    gap: 1px;
+  }
   .loader-letter {
     display: inline-block;
     opacity: 0.4;
@@ -82,6 +80,8 @@ const StyledWrapper = styled.div`
     z-index: 1;
     border-radius: 50ch;
     border: none;
+    font-size: 10px;
+    font-weight: 500;
   }
 
   .loader-letter:nth-child(1) {
