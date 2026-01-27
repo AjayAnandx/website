@@ -4,59 +4,67 @@ import { ArrowRight } from 'lucide-react';
 
 const categories = [
     "All Industries",
-    "AI",
-    "Cybersecurity",
-    "Fintech",
-    "HR Tech",
-    "Healthcare",
-    "Identity Management"
+    "AI & Automation",
+    "VFX & Animation",
+    "Wellness & Health",
+    "Agriculture",
+    "Education"
 ];
 
 const caseStudies = [
     {
         id: '01',
-        company: 'amigo',
-        title: 'Partnered with Vodafone to design a new telco brand, named amigo ("friend" in Portuguese).',
-        description: 'With a bold branding, our role was to create a world-class digital experience across web and mobile.',
-        tags: ['Website', 'Web App', 'Mobile App'],
-        image: '/case-study-1.jpg',
-        category: 'Fintech'
+        company: 'Pixel Arts VFX',
+        title: 'The Magic Behind the Screen',
+        description: 'A compact digital lab specializing in high-end VFX services including Compositing, Matchmove, and Rotoscope for film and digital media.',
+        tags: ['VFX', 'Animation', 'Post-Production'],
+        image: '/vfx_studio_background.png',
+        category: 'VFX & Animation'
     },
     {
         id: '02',
-        company: 'rubrik',
-        title: 'Between 2016 and 2022, we were lucky to watch from the inside as Rubrik became a Cloud Data Management giant.',
-        description: 'During that period, we were responsible for the full design and implementation of its website.',
-        tags: ['Website'],
-        image: '/case-study-2.jpg',
-        category: 'Cybersecurity'
+        company: 'Jayasim Labs',
+        title: 'AI Masterclass & Digital Education',
+        description: 'Transforming business strategies with Generative AI and automation techniques that boost productivity and deliver game-changing ROI.',
+        tags: ['AI', 'EdTech', 'Automation'],
+        image: '/elearning_bg.png',
+        category: 'Education'
     },
     {
         id: '03',
-        company: 'ujet.cx',
-        title: 'Close collaboration to establish its tech hub in Portugal, via world-class design and engineering.',
-        description: 'Ujet is a leader in the CCaaS space.',
-        tags: ['Web App'],
-        image: '/case-study-3.jpg',
-        category: 'AI'
+        company: 'Atma Yogalaya',
+        title: 'Modern Transformation through Yoga',
+        description: 'Expert-led Vinyasa and Hatha yoga programs designed for physical strength, mental clarity, and holistic well-being.',
+        tags: ['Wellness', 'Meditation', 'Health'],
+        image: '/yoga_bg.png',
+        category: 'Wellness & Health'
     },
     {
         id: '04',
-        company: 'Inventory AI',
-        title: 'AI-Powered Inventory Management System for a major retail chain.',
-        description: 'Optimized stock levels and reduced costs by 35%.',
-        tags: ['Web App', 'SaaS'],
-        image: '/case-study-4.jpg',
-        category: 'AI'
+        company: 'Chase Away',
+        title: 'Natural Canine Wellness',
+        description: '100% natural, chemical-free tick and insect repellent solutions ensuring safety and health for pets and their owners.',
+        tags: ['Pet Health', 'Eco-Friendly', 'Product'],
+        image: '/dog_running_bg.png',
+        category: 'Wellness & Health'
     },
     {
         id: '05',
-        company: 'Marketing Gen',
-        title: 'AI Content Generation Platform for Marketing Teams.',
-        description: 'Automating high-quality copy and social media content creation.',
-        tags: ['SaaS', 'Marketing'],
-        image: '/case-study-5.jpg',
-        category: 'AI'
+        company: 'Siruvani Estates',
+        title: 'Sustainable Coffee & Tea',
+        description: 'Boutique estate producing premium Arabica coffee and hand-picked tea with deep respect for the environment and tribal communities.',
+        tags: ['Agriculture', 'Sustainable', 'FMCG'],
+        image: '/coffee_drinking_bg.png',
+        category: 'Agriculture'
+    },
+    {
+        id: '06',
+        company: 'Jayasim AI Advisory',
+        title: 'Strategic AI Implementation',
+        description: 'Digital transformation and strategic AI consulting for global enterprises to drive innovation and operational efficiency.',
+        tags: ['AI Strategy', 'Consulting', 'Enterprise'],
+        image: '/jayasim_text_bg.png',
+        category: 'AI & Automation'
     }
 ];
 
