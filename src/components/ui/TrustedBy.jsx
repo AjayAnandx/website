@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 const companies = [
-    "Acme Corp", "Quantum", "Nebula", "Cyberdyne", "Wayne Ent", "Globex", "Initech", "Umbrella"
+    "Pixel Arts VFX", "Jayasim Labs", "Atma Yogalaya", "Chase Away", "Siruvani Estates", "Jayasim AI Advisory"
 ];
 
 const TrustedBy = () => {
