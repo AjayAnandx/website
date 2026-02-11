@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Aperture, Triangle, Hexagon, Circle, Square, Command, Zap, Layers } from 'lucide-react';
+import { Award, Trophy, Star, Zap, Globe, Layout, Target, Medal } from 'lucide-react';
 
 const LogoItem = ({ Icon, text }) => (
     <div className="flex items-center gap-2 group cursor-default opacity-50 hover:opacity-100 transition-opacity duration-300">
@@ -10,19 +10,19 @@ const LogoItem = ({ Icon, text }) => (
 );
 
 const logos = [
-    { icon: Aperture, text: "Ipsum" },
-    { icon: Triangle, text: "Logoipsum" },
-    { icon: Hexagon, text: "Brand" },
-    { icon: Circle, text: "Circle" },
-    { icon: Square, text: "Square" },
-    { icon: Command, text: "Command" },
-    { icon: Zap, text: "FastTech" },
-    { icon: Layers, text: "Layers" },
+    { icon: Award, text: "Awwwards" },
+    { icon: Trophy, text: "CSS Design Awards" },
+    { icon: Star, text: "Godly" },
+    { icon: Zap, text: "FWA" },
+    { icon: Globe, text: "SiteInspire" },
+    { icon: Layout, text: "Behance" },
+    { icon: Target, text: "Lapa Ninja" },
+    { icon: Medal, text: "One Page Love" },
 ];
 
 const AboutLogos = () => {
     return (
-        <section className="py-20 bg-black/50 overflow-hidden relative border-t border-white/5">
+        <section className="py-20 bg-black overflow-hidden relative">
             <div className="container mx-auto px-6 text-center mb-12">
                 <p className="text-sm font-medium text-white/50">Our designs are featured on:</p>
             </div>

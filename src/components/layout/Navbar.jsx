@@ -58,47 +58,49 @@ const Navbar = () => {
                     </div>
 
                     <div className="hidden md:flex items-center gap-4">
-                        <motion.button
-                            className="group relative px-6 py-2.5 text-base font-bold text-black rounded-full overflow-hidden transition-all duration-500 hover:scale-105 shadow-lg shadow-white/10 hover:shadow-purple-600/20 flex items-center justify-center gap-2"
-                            initial="initial"
-                            whileHover="hover"
-                            layout
-                        >
-                            {/* White background (Always) */}
-                            <div className="absolute inset-0 bg-white"></div>
-
-                            {/* Animated shine effect - distinct violet for visibility on white */}
-                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-600/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                            </div>
-
-                            {/* Button text */}
-                            <motion.span
-                                className="relative z-10"
-                                variants={{
-                                    initial: { x: 0 },
-                                    hover: { x: -4 }
-                                }}
-                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        <Link to="/book-call">
+                            <motion.button
+                                className="group relative px-6 py-2.5 text-base font-bold text-black rounded-full overflow-hidden transition-all duration-500 hover:scale-105 shadow-lg shadow-white/10 hover:shadow-purple-600/20 flex items-center justify-center gap-2"
+                                initial="initial"
+                                whileHover="hover"
+                                layout
                             >
-                                Book a Call
-                            </motion.span>
+                                {/* White background (Always) */}
+                                <div className="absolute inset-0 bg-white"></div>
 
-                            {/* Icon - Explicitly black */}
-                            <motion.span
-                                className="relative z-10 text-black"
-                                variants={{
-                                    initial: { opacity: 0, x: 10, width: 0 },
-                                    hover: { opacity: 1, x: 0, width: "auto" }
-                                }}
-                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                            >
-                                <Phone className="w-4 h-4" />
-                            </motion.span>
+                                {/* Animated shine effect - distinct violet for visibility on white */}
+                                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 overflow-hidden">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-600/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                </div>
 
-                            {/* Glow effect */}
-                            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-purple-600 to-blue-600 blur-xl opacity-40 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </motion.button>
+                                {/* Button text */}
+                                <motion.span
+                                    className="relative z-10"
+                                    variants={{
+                                        initial: { x: 0 },
+                                        hover: { x: -4 }
+                                    }}
+                                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                >
+                                    Book a Call
+                                </motion.span>
+
+                                {/* Icon - Explicitly black */}
+                                <motion.span
+                                    className="relative z-10 text-black"
+                                    variants={{
+                                        initial: { opacity: 0, x: 10, width: 0 },
+                                        hover: { opacity: 1, x: 0, width: "auto" }
+                                    }}
+                                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                                >
+                                    <Phone className="w-4 h-4" />
+                                </motion.span>
+
+                                {/* Glow effect */}
+                                <div className="absolute inset-0 -z-10 bg-gradient-to-r from-purple-600 to-blue-600 blur-xl opacity-40 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            </motion.button>
+                        </Link>
                     </div>
 
                     {/* Mobile Menu Toggle */}
@@ -153,7 +155,9 @@ const Navbar = () => {
                                 )
                             ))}
                             <hr className="border-white/10" />
-                            <Button size="lg" className="w-full">Book a Call</Button>
+                            <Link to="/book-call" onClick={() => setIsMobileMenuOpen(false)}>
+                                <Button size="lg" className="w-full">Book a Call</Button>
+                            </Link>
                         </div>
                     </motion.div>
                 )}

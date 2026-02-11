@@ -20,21 +20,24 @@ const BookCallPage = () => {
     const handleBookingComplete = async (formData) => {
         try {
             const bookingData = {
-                date: selectedDate.toISOString(), // Store as ISO string
+                date: selectedDate.toISOString().split('T')[0], // Store as date only (YYYY-MM-DD)
                 time: selectedTime,
                 status: 'pending',
-                ...formData // spread formData (name, email, phone, subject, file_url, answers)
+                ...formData // spread formData (name, email, phone, subject, file_url, meeting_type)
             };
 
-            // If skipped, formData is null or empty, ensure we have basic data
-            // The DB logic allows nulls for name/email/etc, so we just insert what we have.
+            console.log('Submitting booking data:', bookingData);
 
-            const { error } = await supabase
+            const { error, data } = await supabase
                 .from('bookings')
                 .insert([bookingData]);
 
-            if (error) throw error;
+            if (error) {
+                console.error('Supabase error:', error);
+                throw error;
+            }
 
+            console.log('Booking created successfully:', data);
             setBookingStep('success');
         } catch (error) {
             console.error('Error saving booking:', error);
@@ -104,12 +107,12 @@ const BookCallPage = () => {
                                             <div className="flex flex-col gap-4">
                                                 <div className="flex flex-col gap-2">
                                                     <img
-                                                        src="https://ui-avatars.com/api/?name=Tarik+Polat&background=0D8ABC&color=fff"
-                                                        alt="Tarik Polat"
+                                                        src="https://ui-avatars.com/api/?name=G&background=7c3aed&color=fff&size=128"
+                                                        alt="G"
                                                         className="w-10 h-10 rounded-full object-cover shadow-sm ring-2 ring-white/10"
                                                     />
                                                     <div className="space-y-0.5">
-                                                        <p className="text-gray-400 font-medium text-[10px] uppercase tracking-wider">Tarik Polat</p>
+                                                        <p className="text-gray-400 font-medium text-[10px] uppercase tracking-wider">Giridharan</p>
                                                         <h1 className="text-xl font-bold text-white">30-Minute Strategy Call</h1>
                                                     </div>
                                                 </div>

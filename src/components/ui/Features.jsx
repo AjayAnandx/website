@@ -67,11 +67,10 @@ const projects = [
         title: "Jayasim x AI Advisory",
         category: "AI Strategy, Consulting, Automation",
         description: "Strategic AI implementation and digital transformation for global enterprises.",
-        image: "/jayasim_text_bg.png",
-        bgColor: "bg-white",
+        image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop",
+        bgColor: "bg-black",
         bgImage: true,
-        bgGradient: "from-white to-gray-100",
-        textColor: "text-black",
+        bgGradient: "from-black/60 via-transparent to-black/90",
         quote: null
     }
 ];

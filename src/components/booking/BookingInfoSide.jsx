@@ -62,13 +62,13 @@ const BookingInfoSide = () => {
                 >
                     <div className="relative">
                         <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-700">
-                            {/* Placeholder for Tarik Polat */}
-                            <img src="https://ui-avatars.com/api/?name=Tarik+Polat&background=0D8ABC&color=fff" alt="Tarik Polat" className="w-full h-full object-cover" />
+                            {/* Profile picture as letter G */}
+                            <img src="https://ui-avatars.com/api/?name=G&background=7c3aed&color=fff&size=128" alt="G" className="w-full h-full object-cover" />
                         </div>
                         <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-black rounded-full"></div>
                     </div>
                     <div>
-                        <h3 className="text-white font-semibold text-lg">Tarik Polat, Founder</h3>
+                        <h3 className="text-white font-semibold text-lg">Giridharan , Founder</h3>
                         <div className="flex items-center gap-2 text-gray-400 text-sm">
                             <span className="w-2 h-2 bg-green-500 rounded-full inline-block"></span>
                             Available now

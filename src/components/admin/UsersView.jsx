@@ -35,7 +35,7 @@ const UsersView = () => {
             body: formData
         });
         if (error) {
-            const errorBody = await error.context.json();
+            const errorBody = await error.context.json().catch(() => ({}));
             throw new Error(errorBody.error || error.message);
         }
         await fetchUsers();
