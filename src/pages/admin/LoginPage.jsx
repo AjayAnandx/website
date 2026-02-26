@@ -1,103 +1,89 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Loader2, Lock, Mail } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { login } = useAuth();
     const navigate = useNavigate();
-    const location = useLocation();
-
-    const from = location.state?.from?.pathname || '/admin/dashboard';
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        setIsLoading(true);
-
-        const result = await login(email, password);
-
-        if (result.success) {
-            navigate(from, { replace: true });
-        } else {
-            setError(result.error || 'Failed to login');
-            setIsLoading(false);
+        setLoading(true);
+        try {
+            await login(email, password);
+            navigate('/admin/dashboard');
+        } catch (err) {
+            setError('Invalid email or password. Please try again.');
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
-            {/* Background Effects */}
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--color-primary)]/20 rounded-full blur-[100px]" />
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[var(--color-accent)]/20 rounded-full blur-[100px]" />
-
+        <div className="min-h-screen bg-[#080808] flex items-center justify-center p-4">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="w-full max-w-md"
             >
-                <div className="glass-card p-8 rounded-2xl border border-white/10 shadow-2xl relative z-10">
-                    <div className="text-center mb-8">
-                        <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 mb-2">Admin Access</h1>
-                        <p className="text-gray-400 text-sm">Sign in to manage appointments</p>
+                <div className="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm">
+                    <div className="mb-8 text-center">
+                        <div className="w-12 h-12 bg-[var(--color-accent)]/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <svg className="w-6 h-6 text-[var(--color-accent)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </div>
+                        <h1 className="text-2xl font-bold text-white">Admin Login</h1>
+                        <p className="text-gray-400 text-sm mt-1">Quantum Scripts Dashboard</p>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        {error && (
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center"
-                            >
-                                {error}
-                            </motion.div>
-                        )}
-
+                    <form onSubmit={handleSubmit} className="space-y-5">
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-300">Email Address</label>
-                            <div className="relative">
-                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-                                <input
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all"
-                                    placeholder="admin@example.com"
-                                    required
-                                />
-                            </div>
+                            <label className="text-sm font-medium text-gray-300">Email</label>
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all"
+                                placeholder="admin@example.com"
+                            />
                         </div>
 
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-gray-300">Password</label>
-                            <div className="relative">
-                                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
-                                <input
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all"
-                                    placeholder="Enter password"
-                                    required
-                                />
-                            </div>
+                            <input
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)] transition-all"
+                                placeholder="••••••••"
+                            />
                         </div>
+
+                        {error && (
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="text-red-400 text-sm text-center bg-red-500/10 px-4 py-2 rounded-lg"
+                            >
+                                {error}
+                            </motion.p>
+                        )}
 
                         <button
                             type="submit"
-                            disabled={isLoading}
-                            className="w-full flex items-center justify-center gap-2 bg-[var(--color-accent)] hover:bg-[var(--color-accent)]/90 text-white px-8 py-3 rounded-xl font-semibold transition-all shadow-lg shadow-[var(--color-accent)]/20 disabled:opacity-50 disabled:cursor-not-allowed group"
+                            disabled={loading}
+                            className="w-full py-3 bg-[var(--color-accent)] hover:bg-[var(--color-accent)]/90 text-white font-semibold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            {isLoading ? (
-                                <Loader2 className="w-5 h-5 animate-spin" />
-                            ) : (
-                                "Sign In"
-                            )}
+                            {loading ? 'Signing in...' : 'Sign In'}
                         </button>
                     </form>
                 </div>

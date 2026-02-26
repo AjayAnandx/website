@@ -1,134 +1,80 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import {
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
+    createUserWithEmailAndPassword
+} from 'firebase/auth';
+import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { auth, db } from '../lib/firebase';
 
 const AuthContext = createContext(null);
 
+export const useAuth = () => useContext(AuthContext);
+
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [userRole, setUserRole] = useState(null); // 'admin' | 'user'
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Check active session
-        const getSession = async () => {
-            try {
-                const { data: { session }, error } = await supabase.auth.getSession();
-                if (error) throw error;
-
-                if (session?.user) {
-                    await fetchProfile(session.user);
+        const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+            if (firebaseUser) {
+                // Fetch user role from Firestore
+                const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+                if (userDoc.exists()) {
+                    setUserRole(userDoc.data().role || 'user');
                 } else {
-                    setLoading(false);
+                    // First-time sign in: create user record (default role = 'admin' if first user)
+                    const isFirst = false; // Admin accounts are created manually
+                    await setDoc(doc(db, 'users', firebaseUser.uid), {
+                        uid: firebaseUser.uid,
+                        email: firebaseUser.email,
+                        role: isFirst ? 'admin' : 'user',
+                        createdAt: serverTimestamp(),
+                    });
+                    setUserRole('user');
                 }
-            } catch (error) {
-                console.error('Error checking session:', error);
-                setLoading(false);
-            }
-        };
-
-        getSession();
-
-        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
-            if (session?.user) {
-                await fetchProfile(session.user);
+                setUser(firebaseUser);
             } else {
                 setUser(null);
-                setLoading(false);
+                setUserRole(null);
             }
+            setLoading(false);
         });
-
-        return () => subscription.unsubscribe();
+        return () => unsubscribe();
     }, []);
 
-    const fetchProfile = async (currentUser) => {
-        try {
-            console.log('Fetching profile for:', currentUser.id);
-            // Create a timeout for the profile fetch
-            const timeoutPromise = new Promise((_, reject) =>
-                setTimeout(() => reject(new Error('Profile fetch timeout')), 3000)
-            );
-
-            // Race the query against the timeout
-            const queryPromise = supabase
-                .from('profiles')
-                .select('*')
-                .eq('id', currentUser.id)
-                .single();
-
-            const { data, error } = await Promise.race([queryPromise, timeoutPromise]);
-
-            if (error && error.code !== 'PGRST116') {
-                console.error('Error fetching profile:', error);
-            }
-
-            console.log('Profile fetched:', data);
-            setUser({ ...currentUser, ...data });
-        } catch (error) {
-            console.error('Error in fetchProfile:', error);
-            setUser(currentUser); // Fallback to basic auth user
-        } finally {
-            setLoading(false);
-        }
-    };
-
     const login = async (email, password) => {
-        console.log('Attempting login for:', email);
-        try {
-            // Create a timeout promise to prevent hanging
-            const timeoutPromise = new Promise((resolve) =>
-                setTimeout(() => resolve({ timeout: true }), 5000)
-            );
-
-            // Race the actual sign in against the timeout
-            const result = await Promise.race([
-                supabase.auth.signInWithPassword({ email, password }),
-                timeoutPromise
-            ]);
-
-            // Handle timeout case
-            if (result.timeout) {
-                console.warn('Login timed out, checking session...');
-                // Check if session was actually established despite timeout
-                const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-
-                if (session && !sessionError) {
-                    console.log('Session found after timeout');
-                    // Manually ensure profile is fetched
-                    await fetchProfile(session.user);
-                    return { success: true, data: { session } };
-                }
-
-                return {
-                    success: false,
-                    error: 'Connection timed out. Please check your network or try again.'
-                };
-            }
-
-            // Handle normal response
-            const { data, error } = result;
-
-            if (error) {
-                console.error('Login failed:', error.message);
-                return { success: false, error: error.message };
-            }
-
-            console.log('Login successful');
-            return { success: true, data };
-        } catch (error) {
-            console.error('Login error:', error);
-            return { success: false, error: 'An unexpected error occurred' };
-        }
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        return result.user;
     };
 
     const logout = async () => {
-        await supabase.auth.signOut();
-        setUser(null);
+        await signOut(auth);
     };
 
+    const createUser = async (email, password, role = 'user') => {
+        // Save current admin user
+        const currentUser = auth.currentUser;
+        const result = await createUserWithEmailAndPassword(auth, email, password);
+        await setDoc(doc(db, 'users', result.user.uid), {
+            uid: result.user.uid,
+            email,
+            role,
+            createdAt: serverTimestamp(),
+        });
+        // Sign back in as admin (re-login required after creating another user)
+        return result.user;
+    };
+
+    const isAdmin = userRole === 'admin';
+
+    const value = { user, userRole, isAdmin, loading, login, logout, createUser };
+
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading }}>
-            {children}
+        <AuthContext.Provider value={value}>
+            {!loading && children}
         </AuthContext.Provider>
     );
 };
-
-export const useAuth = () => useContext(AuthContext);

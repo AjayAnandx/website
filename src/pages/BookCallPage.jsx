@@ -5,11 +5,12 @@ import BookingTimeSlots from '../components/booking/BookingTimeSlots';
 import BookingForm from '../components/booking/BookingForm';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, CheckCircle } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../lib/firebase';
 
 const BookCallPage = () => {
-    const [selectedDate, setSelectedDate] = useState(new Date(2026, 0, 13)); // Default selected as per design
-    const [bookingStep, setBookingStep] = useState('calendar'); // 'calendar', 'form', 'success'
+    const [selectedDate, setSelectedDate] = useState(new Date(2026, 0, 13));
+    const [bookingStep, setBookingStep] = useState('calendar');
     const [selectedTime, setSelectedTime] = useState(null);
 
     const handleTimeSelect = (time) => {
@@ -19,28 +20,16 @@ const BookCallPage = () => {
 
     const handleBookingComplete = async (formData) => {
         try {
-            const bookingData = {
-                date: selectedDate.toISOString().split('T')[0], // Store as date only (YYYY-MM-DD)
+            await addDoc(collection(db, 'bookings'), {
+                ...formData,
+                date: selectedDate.toISOString().split('T')[0],
                 time: selectedTime,
                 status: 'pending',
-                ...formData // spread formData (name, email, phone, subject, file_url, meeting_type)
-            };
-
-            console.log('Submitting booking data:', bookingData);
-
-            const { error, data } = await supabase
-                .from('bookings')
-                .insert([bookingData]);
-
-            if (error) {
-                console.error('Supabase error:', error);
-                throw error;
-            }
-
-            console.log('Booking created successfully:', data);
+                createdAt: serverTimestamp(),
+            });
             setBookingStep('success');
-        } catch (error) {
-            console.error('Error saving booking:', error);
+        } catch (err) {
+            console.error('Error saving booking:', err);
             alert('Something went wrong. Please try again.');
         }
     };

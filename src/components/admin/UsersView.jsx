@@ -1,194 +1,212 @@
 import React, { useState, useEffect } from 'react';
-import { Users, UserPlus, Trash2, Key, Loader2, Shield } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
+import { collection, getDocs, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { db } from '../../lib/firebase';
 import { useAuth } from '../../context/AuthContext';
-import UserModal from './UserModal';
+import { motion } from 'framer-motion';
+import { Shield, User, Trash2, UserPlus, X, Eye, EyeOff } from 'lucide-react';
+
+const ROLE_COLORS = {
+    admin: 'text-[var(--color-accent)] bg-[var(--color-accent)]/10 border-[var(--color-accent)]/20',
+    user: 'text-blue-400 bg-blue-400/10 border-blue-400/20',
+};
 
 const UsersView = () => {
-    const { user: currentUser } = useAuth();
+    const { user: currentUser, isAdmin, createUser } = useAuth();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [modal, setModal] = useState({ isOpen: false, mode: 'add', user: null });
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showCreateForm, setShowCreateForm] = useState(false);
+    const [form, setForm] = useState({ email: '', password: '', role: 'user' });
+    const [showPass, setShowPass] = useState(false);
+    const [creating, setCreating] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        fetchUsers();
+        const q = query(collection(db, 'users'), orderBy('createdAt', 'desc'));
+        const unsub = onSnapshot(q, (snap) => {
+            setUsers(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+            setLoading(false);
+        }, async () => {
+            const snap = await getDocs(collection(db, 'users'));
+            setUsers(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+            setLoading(false);
+        });
+        return () => unsub();
     }, []);
 
-    const fetchUsers = async () => {
+    const changeRole = async (uid, role) => {
+        await updateDoc(doc(db, 'users', uid), { role });
+    };
+
+    const deleteUser = async (uid) => {
+        if (!window.confirm('Remove this user from the system?')) return;
+        await deleteDoc(doc(db, 'users', uid));
+    };
+
+    const handleCreate = async (e) => {
+        e.preventDefault();
+        setError('');
+        setCreating(true);
         try {
-            const { data, error } = await supabase.functions.invoke('manage-users', {
-                method: 'GET'
-            });
-            if (error) throw error;
-            setUsers(data.users || []);
-        } catch (error) {
-            console.error('Error fetching users:', error);
+            await createUser(form.email, form.password, form.role);
+            setForm({ email: '', password: '', role: 'user' });
+            setShowCreateForm(false);
+        } catch (err) {
+            setError(err.message || 'Failed to create user.');
         } finally {
-            setLoading(false);
+            setCreating(false);
         }
     };
 
-    const handleAddUser = async (formData) => {
-        const { data, error } = await supabase.functions.invoke('manage-users', {
-            method: 'POST',
-            body: formData
-        });
-        if (error) {
-            const errorBody = await error.context.json().catch(() => ({}));
-            throw new Error(errorBody.error || error.message);
-        }
-        await fetchUsers();
-    };
-
-    const handleUpdatePassword = async (formData) => {
-        const { error } = await supabase.functions.invoke('manage-users', {
-            method: 'PUT',
-            body: { id: formData.id, password: formData.password }
-        });
-        if (error) {
-            const errorBody = await error.context.json().catch(() => ({}));
-            throw new Error(errorBody.error || error.message);
-        }
-        // No need to refetch users for password change
-    };
-
-    const handleDeleteUser = async (userId) => {
-        if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) return;
-
-        setIsSubmitting(true);
-        try {
-            const { error } = await supabase.functions.invoke(`manage-users?id=${userId}`, {
-                method: 'DELETE'
-            });
-            if (error) throw error;
-            setUsers(prev => prev.filter(u => u.id !== userId));
-        } catch (error) {
-            console.error('Error deleting user:', error);
-            alert('Failed to delete user');
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
-    const handleSave = async (data) => {
-        if (modal.mode === 'add') {
-            await handleAddUser(data);
-        } else {
-            await handleUpdatePassword(data);
-        }
-    };
-
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center h-full">
-                <Loader2 className="w-8 h-8 animate-spin text-[var(--color-accent)]" />
-            </div>
-        );
-    }
+    if (loading) return <div className="text-gray-400 py-12 text-center">Loading users...</div>;
 
     return (
-        <div className="p-6 md:p-8 w-full max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-8">
-                <div>
-                    <h1 className="text-3xl font-bold text-white mb-1">Users</h1>
-                    <p className="text-gray-400">Manage system users and verify accounts</p>
-                </div>
-                {currentUser?.role === 'admin' && (
+        <div className="space-y-5">
+            {/* Header row */}
+            <div className="flex items-center justify-between">
+                <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">
+                    System Users ({users.length})
+                </h2>
+                {isAdmin && (
                     <button
-                        onClick={() => setModal({ isOpen: true, mode: 'add', user: null })}
-                        className="flex items-center gap-2 px-4 py-2 bg-[var(--color-accent)] hover:opacity-90 text-white rounded-lg transition-colors text-sm font-medium"
+                        onClick={() => setShowCreateForm(!showCreateForm)}
+                        className="flex items-center gap-2 text-sm text-[var(--color-accent)] px-3 py-1.5 rounded-lg border border-[var(--color-accent)]/20 hover:bg-[var(--color-accent)]/10 transition-all"
                     >
-                        <UserPlus className="w-4 h-4" />
-                        Add User
+                        {showCreateForm ? <X className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
+                        {showCreateForm ? 'Cancel' : 'Add User'}
                     </button>
                 )}
             </div>
 
-            <div className="bg-white/5 rounded-2xl border border-white/5 overflow-hidden">
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
-                        <thead>
-                            <tr className="border-b border-white/5 bg-white/5">
-                                <th className="p-4 text-sm font-medium text-gray-400">User</th>
-                                <th className="p-4 text-sm font-medium text-gray-400">Role</th>
-                                <th className="p-4 text-sm font-medium text-gray-400">Created At</th>
-                                <th className="p-4 text-sm font-medium text-gray-400 text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {users.map((user) => (
-                                <tr key={user.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                                    <td className="p-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center text-white font-medium">
-                                                {user.email?.[0].toUpperCase()}
-                                            </div>
-                                            <div>
-                                                <div className="text-white font-medium">{user.email}</div>
-                                                <div className="text-xs text-gray-500">ID: {user.id.slice(0, 8)}...</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className="p-4">
-                                        <div className="flex items-center gap-2">
-                                            {user.profile?.role === 'admin' ? (
-                                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                                                    <Shield className="w-3 h-3" />
-                                                    Admin
-                                                </span>
-                                            ) : (
-                                                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-gray-500/10 text-gray-400 border border-gray-500/20">
-                                                    User
-                                                </span>
-                                            )}
-                                        </div>
-                                    </td>
-                                    <td className="p-4 text-gray-400 text-sm">
-                                        {new Date(user.created_at).toLocaleDateString()}
-                                    </td>
-                                    <td className="p-4">
-                                        <div className="flex items-center justify-end gap-2">
-                                            <button
-                                                onClick={() => setModal({ isOpen: true, mode: 'edit-password', user })}
-                                                className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
-                                                title="Change Password"
-                                            >
-                                                <Key className="w-4 h-4" />
-                                            </button>
-                                            {currentUser?.id !== user.id && (
-                                                <button
-                                                    onClick={() => handleDeleteUser(user.id)}
-                                                    disabled={isSubmitting}
-                                                    className="p-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors"
-                                                    title="Delete User"
-                                                >
-                                                    <Trash2 className="w-4 h-4" />
-                                                </button>
-                                            )}
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                            {users.length === 0 && (
-                                <tr>
-                                    <td colSpan="4" className="p-8 text-center text-gray-500">
-                                        No users found
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            {/* Create user form */}
+            {isAdmin && showCreateForm && (
+                <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-white/5 border border-white/10 rounded-xl p-5"
+                >
+                    <h3 className="text-sm font-semibold text-white mb-4">Create New User</h3>
+                    <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <input
+                            type="email"
+                            placeholder="Email address"
+                            value={form.email}
+                            onChange={e => setForm({ ...form, email: e.target.value })}
+                            required
+                            className="px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[var(--color-accent)] transition-all"
+                        />
+                        <div className="relative">
+                            <input
+                                type={showPass ? 'text' : 'password'}
+                                placeholder="Password"
+                                value={form.password}
+                                onChange={e => setForm({ ...form, password: e.target.value })}
+                                required
+                                minLength={6}
+                                className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[var(--color-accent)] transition-all pr-10"
+                            />
+                            <button type="button" onClick={() => setShowPass(!showPass)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                {showPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                            </button>
+                        </div>
+                        <div className="flex gap-3">
+                            <select
+                                value={form.role}
+                                onChange={e => setForm({ ...form, role: e.target.value })}
+                                className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-[var(--color-accent)] transition-all"
+                            >
+                                <option value="user" className="bg-[#080808]">User</option>
+                                <option value="admin" className="bg-[#080808]">Admin</option>
+                            </select>
+                            <button
+                                type="submit"
+                                disabled={creating}
+                                className="px-5 py-2.5 bg-[var(--color-accent)] hover:bg-[var(--color-accent)]/90 text-white text-sm font-semibold rounded-lg transition-all disabled:opacity-50"
+                            >
+                                {creating ? 'Creating...' : 'Create'}
+                            </button>
+                        </div>
+                    </form>
+                    {error && <p className="text-red-400 text-xs mt-3">{error}</p>}
+                </motion.div>
+            )}
 
-            <UserModal
-                isOpen={modal.isOpen}
-                onClose={() => setModal({ ...modal, isOpen: false })}
-                mode={modal.mode}
-                selectedUser={modal.user}
-                onSave={handleSave}
-            />
+            {/* Users table */}
+            <div className="overflow-x-auto rounded-xl border border-white/10">
+                <table className="w-full text-sm">
+                    <thead>
+                        <tr className="border-b border-white/10 bg-white/3">
+                            {['User', 'Email', 'Role', ...(isAdmin ? ['Actions'] : [])].map(h => (
+                                <th key={h} className="text-left px-4 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider">{h}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.map((u, i) => (
+                            <motion.tr
+                                key={u.id}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: i * 0.04 }}
+                                className={`border-b border-white/5 transition-colors hover:bg-white/3 ${u.uid === currentUser?.uid ? 'bg-white/2' : ''}`}
+                            >
+                                {/* Avatar + name */}
+                                <td className="px-4 py-3">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-white">
+                                            {u.email?.[0]?.toUpperCase()}
+                                        </div>
+                                        <div>
+                                            {u.uid === currentUser?.uid && (
+                                                <span className="text-[10px] text-[var(--color-accent)] font-semibold">You</span>
+                                            )}
+                                        </div>
+                                    </div>
+                                </td>
+
+                                {/* Email */}
+                                <td className="px-4 py-3 text-gray-300">{u.email}</td>
+
+                                {/* Role badge */}
+                                <td className="px-4 py-3">
+                                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold border ${ROLE_COLORS[u.role] || ROLE_COLORS.user}`}>
+                                        {u.role === 'admin' ? <Shield className="w-3 h-3" /> : <User className="w-3 h-3" />}
+                                        {u.role || 'user'}
+                                    </span>
+                                </td>
+
+                                {/* Actions (admin only) */}
+                                {isAdmin && (
+                                    <td className="px-4 py-3">
+                                        <div className="flex items-center gap-2">
+                                            {/* Role toggle */}
+                                            {u.uid !== currentUser?.uid && (
+                                                <>
+                                                    <button
+                                                        onClick={() => changeRole(u.uid || u.id, u.role === 'admin' ? 'user' : 'admin')}
+                                                        className="text-xs px-2.5 py-1 rounded border border-white/10 text-gray-300 hover:text-white hover:border-white/20 transition-all"
+                                                    >
+                                                        Make {u.role === 'admin' ? 'User' : 'Admin'}
+                                                    </button>
+                                                    <button
+                                                        onClick={() => deleteUser(u.uid || u.id)}
+                                                        className="text-xs px-2 py-1 rounded border border-red-500/20 text-red-400 hover:bg-red-500/10 transition-all"
+                                                    >
+                                                        <Trash2 className="w-3.5 h-3.5" />
+                                                    </button>
+                                                </>
+                                            )}
+                                            {u.uid === currentUser?.uid && (
+                                                <span className="text-[11px] text-gray-500">Current session</span>
+                                            )}
+                                        </div>
+                                    </td>
+                                )}
+                            </motion.tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

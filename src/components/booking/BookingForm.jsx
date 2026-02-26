@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Upload, X, Check, ArrowRight, Loader2 } from 'lucide-react';
-import { supabase } from '../../lib/supabase';
+
 
 const BookingForm = ({ onComplete, onBack, selectedDate, selectedTime }) => {
     const [formData, setFormData] = useState({
@@ -37,38 +37,15 @@ const BookingForm = ({ onComplete, onBack, selectedDate, selectedTime }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-
         try {
-            let fileUrl = null;
-
-            if (file) {
-                const fileExt = file.name.split('.').pop();
-                const fileName = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
-                const filePath = `${fileName}`;
-
-                const { error: uploadError, data } = await supabase.storage
-                    .from('booking-uploads')
-                    .upload(filePath, file);
-
-                if (uploadError) {
-                    throw uploadError;
-                }
-
-                // Get public URL (or signed URL if private, but for now we'll store the path or public URL if bucket is public)
-                // Since bucket is private, we likely just store the path and generate signed URLs on demand, 
-                // but for simplicity in this demo we'll store the path.
-                fileUrl = filePath;
-            }
-
-            onComplete({
+            // Pass form data up to BookCallPage which writes to Firestore
+            await onComplete({
                 ...formData,
-                file_url: fileUrl
+                file_url: file ? file.name : null
             });
-
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            // Handle error (maybe show a toast)
-            alert('Error submitting form. Please try again.');
+        } catch (err) {
+            console.error('Booking submit error:', err);
+            alert('Something went wrong. Please try again.');
         } finally {
             setIsSubmitting(false);
         }
