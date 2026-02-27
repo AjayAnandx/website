@@ -3,25 +3,22 @@ import ShinyText from "../ui/ShinyText";
 
 const Footer = () => {
     const navigationLinks = [
-        { name: "Services", href: "#services", isRoute: false },
-        { name: "Results", href: "#results", isRoute: false },
-        { name: "Plans", href: "#plans", isRoute: false },
-        { name: "Reviews", href: "#reviews", isRoute: false },
-        { name: "Why Us", href: "#whyus", isRoute: false },
-        { name: "Team", href: "#team", isRoute: false },
+        { name: "Home", href: "/", isRoute: true },
+        { name: "About Us", href: "/about", isRoute: true },
+        { name: "Services", href: "/services", isRoute: true },
+        { name: "Case Studies", href: "/case-study", isRoute: true },
+        { name: "Careers", href: "/careers", isRoute: true },
+        { name: "Book a Call", href: "/book-call", isRoute: true },
+        { name: "Contact", href: "/contact", isRoute: true },
     ];
 
     const legalLinks = [
-        { name: "Terms of service", href: "#terms" },
-        { name: "Privacy Policy", href: "#privacy" },
-        { name: "Thank You", href: "#thankyou" },
-        { name: "404 Page", href: "#404" },
+        { name: "Terms of Service", href: "/terms" },
+        { name: "Privacy Policy", href: "/privacy" },
     ];
 
     const socialLinks = [
-        { name: "X/Twitter", href: "#twitter" },
-        { name: "LinkedIn", href: "#linkedin" },
-        { name: "YouTube", href: "#youtube" },
+        { name: "LinkedIn", href: "https://www.linkedin.com/in/quantum-scripts-3449052b8/", external: true },
     ];
 
     return (
@@ -111,6 +108,7 @@ const Footer = () => {
                                         <a
                                             href={link.href}
                                             className="text-white/60 hover:text-white text-sm transition-colors"
+                                            {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                                         >
                                             {link.name}
                                         </a>
@@ -124,7 +122,7 @@ const Footer = () => {
 
                 {/* Bottom Section */}
                 <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/40">
-                    <p>© 2025 Quantum Scripts. All rights reserved.</p>
+                    <p>© 2026 Quantum Scripts. All rights reserved.</p>
                     <div className="flex gap-4">
                         <span>Built with React</span>
                     </div>

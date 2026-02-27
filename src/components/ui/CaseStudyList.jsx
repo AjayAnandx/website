@@ -18,7 +18,7 @@ const caseStudies = [
         title: 'The Magic Behind the Screen',
         description: 'A compact digital lab specializing in high-end VFX services including Compositing, Matchmove, and Rotoscope for film and digital media.',
         tags: ['VFX', 'Animation', 'Post-Production'],
-        image: '/vfx_studio_background.png',
+        image: '/pixel.png',
         category: 'VFX & Animation',
         link: 'https://www.pixelartsvfx.com/'
     },
@@ -28,7 +28,7 @@ const caseStudies = [
         title: 'AI Masterclass & Digital Education',
         description: 'Transforming business strategies with Generative AI and automation techniques that boost productivity and deliver game-changing ROI.',
         tags: ['AI', 'EdTech', 'Automation'],
-        image: '/elearning_bg.png',
+        image: '/jayasim_labs.png',
         category: 'Education',
         link: 'https://labs.jayasim.com/'
     },
@@ -38,7 +38,7 @@ const caseStudies = [
         title: 'Modern Transformation through Yoga',
         description: 'Expert-led Vinyasa and Hatha yoga programs designed for physical strength, mental clarity, and holistic well-being.',
         tags: ['Wellness', 'Meditation', 'Health'],
-        image: '/yoga_bg.png',
+        image: '/atma.png',
         category: 'Wellness & Health',
         link: 'https://atmayogalaya.wixsite.com/atma-yogalaya'
     },
@@ -48,7 +48,7 @@ const caseStudies = [
         title: 'Natural Canine Wellness',
         description: '100% natural, chemical-free tick and insect repellent solutions ensuring safety and health for pets and their owners.',
         tags: ['Pet Health', 'Eco-Friendly', 'Product'],
-        image: '/dog_running_bg.png',
+        image: '/chaseaway.png',
         category: 'Wellness & Health',
         link: 'https://www.chaseaway.ca/'
     },
@@ -58,7 +58,7 @@ const caseStudies = [
         title: 'Sustainable Coffee & Tea',
         description: 'Boutique estate producing premium Arabica coffee and hand-picked tea with deep respect for the environment and tribal communities.',
         tags: ['Agriculture', 'Sustainable', 'FMCG'],
-        image: '/coffee_drinking_bg.png',
+        image: '/coffe.png',
         category: 'Agriculture',
         link: 'https://www.siruvaniestates.com/'
     },
@@ -68,7 +68,7 @@ const caseStudies = [
         title: 'Strategic AI Implementation',
         description: 'Digital transformation and strategic AI consulting for global enterprises to drive innovation and operational efficiency.',
         tags: ['AI Strategy', 'Consulting', 'Enterprise'],
-        image: '/jayasim_text_bg.png',
+        image: '/jayasim_advisory.png',
         category: 'AI & Automation',
         link: 'https://jayasim.com/'
     }

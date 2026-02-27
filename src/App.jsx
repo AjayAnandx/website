@@ -4,8 +4,8 @@ import TrustedBy from "./components/ui/TrustedBy";
 import AboutSection from "./components/ui/AboutSection";
 import OurServicesSection from "./components/ui/OurServicesSection";
 import ResultsSection from "./components/ui/ResultsSection";
-import ContactSection from "./components/ui/ContactSection";
 import OurClientsSection from "./components/ui/OurClientsSection";
+import ContactCTA from "./components/ui/ContactCTA";
 function App() {
   return (
     <>
@@ -16,7 +16,7 @@ function App() {
       <ResultsSection />
       <Features />
       <OurClientsSection />
-      <ContactSection />
+      <ContactCTA />
     </>
   );
 }
