@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
-const BASE_URL = 'https://yourdomain.com'; // ← update with your production domain
+const BASE_URL = 'https://quantumscripts.in';
 const OUTPUT_PATH = path.join(__dirname, '..', 'public', 'sitemap.xml');
 const TODAY = new Date().toISOString().split('T')[0];
 
