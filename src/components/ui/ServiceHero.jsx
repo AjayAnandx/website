@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const ServiceHero = () => {
@@ -98,8 +99,8 @@ const ServiceHero = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.5 }}
                     >
-                        <a
-                            href="#contact"
+                        <Link
+                            to="/book-call"
                             className="inline-block px-8 py-4 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50"
                             style={{
                                 background: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%)',
@@ -108,7 +109,7 @@ const ServiceHero = () => {
                             }}
                         >
                             Launch Now
-                        </a>
+                        </Link>
                     </motion.div>
                 </motion.div>
             </div>

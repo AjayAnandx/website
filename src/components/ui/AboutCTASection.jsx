@@ -1,10 +1,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Phone } from "lucide-react";
 import Silk from "./Silk";
 
 const AboutCTASection = () => {
     const sectionRef = useRef(null);
+    const navigate = useNavigate();
 
     // Track scroll progress for emergence effect
     const { scrollYProgress } = useScroll({
@@ -98,7 +100,8 @@ const AboutCTASection = () => {
                         transition={{ duration: 0.8, delay: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
                     >
                         <motion.button
-                            className="group relative px-8 py-3 text-base font-semibold text-white rounded-full overflow-hidden transition-all duration-500 hover:scale-105 shadow-2xl shadow-purple-600/30 flex items-center justify-center gap-2 mx-auto"
+                            onClick={() => navigate("/book-call")}
+                            className="group relative px-8 py-3 text-base font-semibold text-white rounded-full overflow-hidden transition-all duration-500 hover:scale-105 shadow-2xl shadow-purple-600/30 flex items-center justify-center gap-2 mx-auto cursor-pointer"
                             initial="initial"
                             whileHover="hover"
                         >
